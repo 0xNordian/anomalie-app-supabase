@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
+/* @layer base {
   :root {
     --background: 200 20% 98%;
     --btn-background: 200 10% 91%;
@@ -28,9 +28,9 @@
 
 .animate-in {
   animation: animateIn 0.3s ease 0.15s both;
-}
+} */
 
-@keyframes animateIn {
+/* @keyframes animateIn {
   from {
     opacity: 0;
     transform: translateY(10px);
@@ -39,17 +39,11 @@
     opacity: 1;
     transform: translateY(0);
   }
-}
+} */
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: rgb(var(--background-start-rgb));
-  /* background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb)); */
+  background: #000;
+  color: #fff
 }
 
 /* Heading Level 1 */
