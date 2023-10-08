@@ -18,7 +18,9 @@ const Page = async () => {
                             <p className="text-gray-400 text-sm">
                                 Id: {post.post_id}
                             </p>
-                            {/* <div className="">{JSON.stringify(post)}</div> */}
+                            <div className="mt-4">
+                                <pre>{JSON.stringify(post, null, 2)}</pre>
+                            </div>
                         </div>
                     </div>
                 ))}

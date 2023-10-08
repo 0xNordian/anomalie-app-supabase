@@ -70,7 +70,7 @@ export default async function Index() {
 
       <main className="flex flex-col min-h-screen min-w-[75%] justify-center items-center text-white ">
             <h2>Hello twitter! 👋</h2>
-            <div className="w-1/2 outline">
+            <div className="min-w-[250px] max-w-auto outline">
             <FetchPosts />
             </div>
         </main>
