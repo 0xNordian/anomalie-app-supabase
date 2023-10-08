@@ -17,13 +17,13 @@ const ComposePostTextArea = () => {
             return;
         }
 
-        // if (pending && !alreadySent.current) {
-        //     alreadySent.current = true;
-        //     textAreaRef.current.value = 'Sending...';
-        //     return;
-        // }
+        if (pending && !alreadySent.current) {
+            alreadySent.current = true;
+            textAreaRef.current.value = 'Sending...';
+            return;
+        }
 
-        alreadySent.current = pending;
+        // alreadySent.current = pending;
     }, [pending]);
     return (
         <textarea
