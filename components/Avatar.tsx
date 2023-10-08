@@ -20,7 +20,8 @@ const Avatar = ({ profile_pic }: ProfilePicType) => {
     return (
         <Image
             // className="w-6 h-6"
-            src={`${profile_pic}`}
+            // src={`${profile_pic}`}
+            src={`/icons/user.png`}
             alt="User Avatar"
             width={48}
             height={48}
