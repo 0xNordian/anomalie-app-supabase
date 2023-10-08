@@ -11,7 +11,7 @@ type ComposePostType = {
 const ComposePost = ({ profile_pic }: ComposePostType) => {
     const addPost = async (formData: FormData) => {
         "use server";
-        console.log("add post works!")
+        // console.log("add post works!")
         const content = formData.get("content");
         if (content === null) return;
 

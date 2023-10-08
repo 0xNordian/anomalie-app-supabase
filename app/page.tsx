@@ -5,7 +5,7 @@ import LogoutButton from "../components/LogoutButton";
 import DeployButton from "../components/DeployButton";
 import ProfileFeed from "../components/ProfileFeed";
 import { useRouter, redirect } from "next/navigation";
-import { revalidatePath } from "next/cache";
+// import { revalidatePath } from "next/cache";
 import ComposePost from "@/components/compose-post";
 
 export const dynamic = "force-dynamic";
@@ -23,8 +23,8 @@ export default async function Index() {
     const {
         data: { user },
     } = await supabase.auth.getUser();
-
-    revalidatePath("/");
+// console.log("user: ", user)
+    // revalidatePath("/");
 
     return (
         <div className="w-full flex flex-col items-center">
