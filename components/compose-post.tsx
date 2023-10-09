@@ -18,17 +18,19 @@ const ComposePost = ({ profile_pic }: ComposePostType) => {
         const supabase = createServerActionClient({ cookies });
         // revisar si el usuario esta logeado
         const { data: user } = await supabase.auth.getUser();
-        const userId = user?.user?.id;
-        if (user === null) return
-        await supabase.from("posts").insert([{ content, user_id: user?.user?.id }]);
-        
+        // const userId = user?.user?.id;
+        if (user === null) return;
+        await supabase
+            .from("posts")
+            .insert([{ content, user_id: user?.user?.id }]);
+
         revalidatePath("/");
     };
     return (
         <form action={addPost} className="flex flex-1 flex-col gap-y-4">
             <Avatar profile_pic={profile_pic} />
             <div className="flex flex-1 flex-col gap-y-4">
-            <ComposePostTextArea />
+                <ComposePostTextArea />
                 <button className="post-button">Post</button>
             </div>
         </form>

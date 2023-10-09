@@ -3,125 +3,125 @@
 @tailwind utilities;
 
 @layer base {
-  :root {
-    --background: 200 20% 98%;
-    --btn-background: 200 10% 91%;
-    --btn-background-hover: 200 10% 89%;
-    --foreground: 200 50% 3%;
-  }
-
-  @media (prefers-color-scheme: dark) {
     :root {
-      --background: 200 50% 3%;
-      --btn-background: 200 10% 9%;
-      --btn-background-hover: 200 10% 12%;
-      --foreground: 200 20% 96%;
+        --background: 200 20% 98%;
+        --btn-background: 200 10% 91%;
+        --btn-background-hover: 200 10% 89%;
+        --foreground: 200 50% 3%;
     }
-  }
+
+    @media (prefers-color-scheme: dark) {
+        :root {
+            --background: 200 50% 3%;
+            --btn-background: 200 10% 9%;
+            --btn-background-hover: 200 10% 12%;
+            --foreground: 200 20% 96%;
+        }
+    }
 }
 
-@layer base {
-   {
+/* @layer base {
+    {
     @apply border-foreground/20;
   }
-}
+} */
 
 .animate-in {
-  animation: animateIn 0.3s ease 0.15s both;
+    animation: animateIn 0.3s ease 0.15s both;
 }
 
 @keyframes animateIn {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 body {
-  background: #000;
-  color: #fff
+    background: #000;
+    color: #fff;
 }
 
 /* Heading Level 1 */
 h1 {
-  font-size: 2.5em;
-  margin-top: 0.67em;
-  margin-bottom: 0.67em;
-  font-weight: bold;
-  color: #333;
+    font-size: 2.5em;
+    margin-top: 0.67em;
+    margin-bottom: 0.67em;
+    font-weight: bold;
+    color: #333;
 }
 
 /* Heading Level 2 */
 h2 {
-  font-size: 2em;
-  margin-top: 0.83em;
-  margin-bottom: 0.83em;
-  font-weight: bold;
-  color: #444;
+    font-size: 2em;
+    margin-top: 0.83em;
+    margin-bottom: 0.83em;
+    font-weight: bold;
+    color: #444;
 }
 
 /* Heading Level 3 */
 h3 {
-  font-size: 1.5em;
-  margin-top: 1em;
-  margin-bottom: 1em;
-  font-weight: bold;
-  color: #555;
+    font-size: 1.5em;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    font-weight: bold;
+    color: #555;
 }
 
 /* Heading Level 4 */
 h4 {
-  font-size: 1.2em;
-  margin-top: 1.33em;
-  margin-bottom: 1.33em;
-  font-weight: bold;
-  color: #666;
+    font-size: 1.2em;
+    margin-top: 1.33em;
+    margin-bottom: 1.33em;
+    font-weight: bold;
+    color: #666;
 }
 
 /* Heading Level 5 */
 h5 {
-  font-size: 1em;
-  margin-top: 1.67em;
-  margin-bottom: 1.67em;
-  font-weight: bold;
-  color: #777;
+    font-size: 1em;
+    margin-top: 1.67em;
+    margin-bottom: 1.67em;
+    font-weight: bold;
+    color: #777;
 }
 
 /* Heading Level 6 */
 h6 {
-  font-size: 0.83em;
-  margin-top: 2.33em;
-  margin-bottom: 2.33em;
-  font-weight: bold;
-  color: #888;
+    font-size: 0.83em;
+    margin-top: 2.33em;
+    margin-bottom: 2.33em;
+    font-weight: bold;
+    color: #888;
 }
 
-.post-button{
-  background-color: cyan;
-  color: black;
-  border-radius: 5px;
-  border: none;
-  padding: 8px 20px;
-  margin: 10px;
-  cursor: pointer;
-  font-size: 1.2em;
-  width: 100px;
-  align-self: flex-end;
+.post-button {
+    background-color: cyan;
+    color: black;
+    border-radius: 5px;
+    border: none;
+    padding: 8px 20px;
+    margin: 10px;
+    cursor: pointer;
+    font-size: 1.2em;
+    width: 100px;
+    align-self: flex-end;
 }
 
 .custom-textarea {
-  width: 100%;
-  padding: 16px;
-  font-size: 2rem;
-  color: rgb(133, 133, 133);
-  background-color: black;
+    width: 100%;
+    padding: 16px;
+    font-size: 2rem;
+    color: rgb(133, 133, 133);
+    background-color: black;
 }
 
 .custom-textarea::placeholder {
-  color: gray;
-  opacity: 0.5; /* Placeholder text in some browsers is slightly transparent, this makes it full opacity */
+    color: gray;
+    opacity: 0.5; /* Placeholder text in some browsers is slightly transparent, this makes it full opacity */
 }

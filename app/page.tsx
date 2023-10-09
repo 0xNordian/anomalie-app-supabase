@@ -3,9 +3,8 @@ import { cookies } from "next/headers";
 import Link from "next/link";
 import LogoutButton from "../components/LogoutButton";
 import DeployButton from "../components/DeployButton";
-import ProfileFeed from "../components/ProfileFeed";
+import ProfileFeed from "../components/profileFeed";
 import { useRouter, redirect } from "next/navigation";
-// import { revalidatePath } from "next/cache";
 import ComposePost from "@/components/compose-post";
 
 export const dynamic = "force-dynamic";
