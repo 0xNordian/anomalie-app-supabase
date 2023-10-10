@@ -10,6 +10,7 @@ import {
 import { HiOutlineHashtag } from "react-icons/hi";
 import { HiEnvelope } from "react-icons/hi2";
 import { BsSearch } from "react-icons/bs";
+import { FiSettings } from "react-icons/fi";
 
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies, headers } from "next/headers";
@@ -38,8 +39,8 @@ const NAVIGATION_ITEMS = [
         icon: BsEnvelope,
     },
     {
-        title: "Bookmarks",
-        icon: BsBookmark,
+        title: "Settings",
+        icon: FiSettings,
     },
     {
         title: "Profile",
