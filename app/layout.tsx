@@ -1,4 +1,5 @@
 import './globals.css'
+import {Providers} from "./providers";
 
 export const metadata = {
   title: 'Anomalie App',
@@ -14,7 +15,9 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <main className="min-h-screen max-w-[70%] bg-background flex flex-col items-center justify-center mx-auto">
+        <Providers>
           {children}
+        </Providers>
         </main>
       </body>
     </html>
