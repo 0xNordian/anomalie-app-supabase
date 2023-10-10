@@ -4,6 +4,11 @@ import Avatar from "./Avatar";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 import { PiShareFatLight } from "react-icons/pi";
+import { BiRepost, BiDotsVerticalRounded } from "react-icons/bi";
+import { FaRegComment } from "react-icons/fa";
+import {BsThreeDots} from "react-icons/bs";
+
+import LikeIcon from "./Like";
 
 const ProfileFeed = async () => {
     const posts = await FetchPosts();
@@ -108,29 +113,43 @@ const ProfileFeed = async () => {
                             <div className="flex">
                                 <Avatar profile_pic={post.users.profile_pic} />
                                 <div className="flex flex-col gap-2 justify-center items-center w-full ml-2">
-                                    <div className="flex w-full gap-2 pl-2 items-center">
-                                        <p>@{post.users.username}</p>
-                                        <span
-                                            className="text-gray-400 text-sm"
-                                            title={formatDate(
-                                                new Date(post.created_at)
-                                            )}
-                                        >
-                                            {" "}
-                                            {formatElapsedTime(
-                                                new Date(post.created_at)
-                                            )}
-                                        </span>
+                                    <div className="flex w-full justify-between items-center pl-2">
+                                        <div className="flex gap-2 items-center">
+                                            <p>@{post.users.username}</p>
+                                            <span
+                                                className="text-gray-400 text-sm"
+                                                title={formatDate(
+                                                    new Date(post.created_at)
+                                                )}
+                                            >
+                                                {formatElapsedTime(
+                                                    new Date(post.created_at)
+                                                )}
+                                            </span>
+                                        </div>
+                                        <div>
+                                            <BsThreeDots />
+                                        </div>
                                     </div>
-                                    <p className="w-full p-2">{post.content}</p>
+
+                                    <p className="w-full p-2 break-all">
+                                        {post.content}
+                                    </p>
                                     <div
                                         id="reactions"
-                                        className="flex w-full justify-between p-2"
+                                        className="flex w-full justify-between p-2 text-[1.2rem]"
                                     >
-                                        <div>💬</div>
-                                        <div>🔄</div>
-                                        <div>❤️</div>
-                                        <div>
+                                        <div className="scale-[1] hover:scale-[1.1]">
+                                            <FaRegComment />
+                                        </div>
+
+                                        <div className="scale-[1.25] hover:scale-[1.35]">
+                                            <BiRepost />
+                                        </div>
+                                        <div className="scale-[1] hover:scale-[1.1]">
+                                            <LikeIcon />
+                                        </div>
+                                        <div className="scale-[1] hover:scale-[1.1]">
                                             <PiShareFatLight />
                                         </div>
                                     </div>

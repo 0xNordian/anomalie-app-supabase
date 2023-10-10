@@ -15,10 +15,10 @@ import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies, headers } from "next/headers";
 
 const NAVIGATION_ITEMS = [
-    {
-        title: "Twitter",
-        icon: BsTwitter,
-    },
+    // {
+    //     title: "Twitter",
+    //     icon: BsTwitter,
+    // },
     {
         title: "Home",
         icon: BiHomeCircle,

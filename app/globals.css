@@ -101,7 +101,7 @@ h6 {
 }
 
 .post-button {
-    background-color: #4A99E9;
+    background-color: #4a99e9;
     color: black;
     border-radius: 20px;
     border: none;
@@ -113,15 +113,15 @@ h6 {
     align-self: flex-end;
 }
 
-/* .custom-textarea {
-    width: 100%;
-    padding: 16px;
-    font-size: 2rem;
-    color: rgb(133, 133, 133);
-    background-color: transparent;
+#toggle-icon {
+    display: none;
 }
 
-.custom-textarea::placeholder {
-    color: gray;
-    opacity: 0.5;
-} */
+#default-icon:hover + #toggle-icon,
+#toggle-icon:hover {
+    display: inline;
+}
+
+#default-icon:hover {
+    display: none;
+}
