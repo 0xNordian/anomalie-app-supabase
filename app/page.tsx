@@ -6,11 +6,14 @@ import DeployButton from "../components/DeployButton";
 import ProfileFeed from "../components/profileFeed";
 import { useRouter, redirect } from "next/navigation";
 import ComposePost from "@/components/compose-post";
+import AppLayout from "./layouts/page";
+import FetchUsers from "@/utils/FetchUsers";
 
 export const dynamic = "force-dynamic";
 
 export default async function Index() {
     const supabase = createServerComponentClient({ cookies });
+    const users = await FetchUsers();
     const {
         data: { session },
     } = await supabase.auth.getSession();
@@ -22,8 +25,9 @@ export default async function Index() {
     const {
         data: { user },
     } = await supabase.auth.getUser();
-// console.log("user: ", user)
-    // revalidatePath("/");
+
+    const matchingUser = users?.find(user => user.id === session.user.id);
+    const userProfilePic = matchingUser?.profile_pic ?? null;
 
     return (
         <div className="w-full flex flex-col items-center">
@@ -45,16 +49,12 @@ export default async function Index() {
                     )}
                 </div>
             </nav>
-
-            <main className="flex flex-col min-h-screen min-w-[75%] justify-center items-center text-white ">
-                <h2>Hello twitter! 👋</h2>
-                <div className="">
-                    <ComposePost
-                        profile_pic={session.user?.user_metadata?.profile_pic}
-                    />
-                    <ProfileFeed />
-                </div>
-            </main>
+            <AppLayout>
+                <ComposePost
+                    profile_pic={userProfilePic}
+                />
+                <ProfileFeed />
+            </AppLayout>
         </div>
     );
 }

@@ -30,7 +30,7 @@ const ComposePostTextArea = () => {
             ref={textAreaRef}
             name="content"
             rows={4}
-            className="custom-textarea"
+            className="custom-textarea placeholder:text-[1.3rem] bg-transparent px-2 resize-none"
             placeholder="What is on your mind?"
         ></textarea>
     );
