@@ -26,7 +26,7 @@ export default async function Index() {
         data: { user },
     } = await supabase.auth.getUser();
 
-    const matchingUser = users?.find(user => user.id === session.user.id);
+    const matchingUser = users?.find((user) => user.id === session.user.id);
     const userProfilePic = matchingUser?.profile_pic ?? null;
 
     return (
@@ -42,7 +42,7 @@ export default async function Index() {
                     ) : (
                         <Link
                             href="/login"
-                            className="py-2 px-3 flex rounded-md no-underline bg-btn-background hover:bg-btn-background-hover"
+                            className="flex py-2 px-3 rounded-md no-underline bg-btn-background hover:bg-btn-background-hover"
                         >
                             Login
                         </Link>
@@ -50,9 +50,7 @@ export default async function Index() {
                 </div>
             </nav>
             <AppLayout>
-                <ComposePost
-                    profile_pic={userProfilePic}
-                />
+                <ComposePost profile_pic={userProfilePic} />
                 <ProfileFeed />
             </AppLayout>
         </div>

@@ -8,7 +8,7 @@ import { BiRepost, BiDotsVerticalRounded } from "react-icons/bi";
 import { FaRegComment } from "react-icons/fa";
 import {BsThreeDots} from "react-icons/bs";
 
-import LikeIcon from "./Like";
+import LikeIcon from "./Reaction";
 
 const ProfileFeed = async () => {
     const posts = await FetchPosts();
