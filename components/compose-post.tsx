@@ -22,7 +22,7 @@ const ComposePost = ({ profile_pic }: ComposePostType) => {
         if (user === null) return;
         await supabase
             .from("posts")
-            .insert([{ content, user_id: user?.user?.id }]);
+            .insert([{ content, author_id: user?.user?.id }]);
 
         revalidatePath("/");
     };
