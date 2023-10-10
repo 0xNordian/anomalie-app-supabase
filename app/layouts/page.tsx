@@ -13,6 +13,8 @@ import { BsSearch } from "react-icons/bs";
 
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies, headers } from "next/headers";
+import FetchUsers from "@/utils/FetchUsers";
+import Avatar from "@/components/Avatar";
 
 const NAVIGATION_ITEMS = [
     // {
@@ -49,26 +51,14 @@ export default async function AppLayout({ children }) {
     const supabase = createServerComponentClient({ cookies });
     if (!supabase) return null;
     const { data: userData, error: userError } = await supabase.auth.getUser();
-    // console.log("userData: ", userData);
+    const users = await FetchUsers();
+    const {
+        data: { session },
+    } = await supabase.auth.getSession();
+    const matchingUser = users?.find(user => user.id === session.user.id);
+    const userProfilePic = matchingUser?.profile_pic ?? null;
+    console.log("matchingUser: ", matchingUser);
     return (
-        // <div className="flex min-h-screen min-w-[70%] border-2 border-dashed ">
-        //     <div
-        //         id="sidebar"
-        //         className="flex w-1/4 border-2 border-dashed border-yellow-500 fixed"
-        //     >
-        //         <h1>Left Sidebar</h1>
-        //     </div>
-
-        //     <div
-        //         id="main"
-        //         className="flex w-3/4 border-2 border-dashed border-cyan-500"
-        //     >
-        //         <div className="w-3/4">{children}</div>
-        //         <div className="w-1/4 outline">
-        //             <h1>Right Sidebar</h1>
-        //         </div>
-        //     </div>
-        // </div>
         <div className="w-full h-full flex justify-center items-center">
             <div className="max-w-screen-log w-full h-full flex relative">
                 <section className="w-[25%] sticky top-0 xl:flex flex-col items-stretch h-screen hidden">
@@ -100,13 +90,13 @@ export default async function AppLayout({ children }) {
                     </div>
                     <button className="rounded-full flex items-center space-x-2 bg-transparent p-4 text-center hover:bg-white/10 transition duration-200 w-full justify-between">
                         <div className="flex items-center space-x-2">
-                            <div className="rounded-full bg-slate-400 w-10 h-10"></div>
+                            <div className="rounded-full bg-slate-400 w-10 h-10"><Avatar profile_pic={userProfilePic}/></div>
                             <div className="text-left text-sm">
                                 <div className="font-semibold">
-                                    {userData.user?.user_metadata.full_name}
+                                    Name Placeholder
                                 </div>
                                 <div className="">
-                                    @{userData.user?.user_metadata.username}
+                                    @{matchingUser?.username}
                                 </div>
                             </div>
                         </div>

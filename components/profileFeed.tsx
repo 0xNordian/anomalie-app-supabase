@@ -21,38 +21,6 @@ const ProfileFeed = async () => {
     const filteredPosts =
         posts?.filter((post) => post.users.id === user?.id) || [];
 
-    // return (
-    //     <div className="flex flex-col p-4 gap-4">
-    //         {posts &&
-    //             posts.map((post) => (
-    //                 <div key={post.post_id} className="">
-    //                     <div className="">
-    //                         <Avatar profile_pic={post.users.profile_pic} />
-    //                         <p>Username: {post.users.username}</p>
-    //                         <p className="">Content: {post.content}</p>
-    //                         <p className="text-gray-400 text-sm">
-    //                             Date: {post.created_at}
-    //                         </p>
-    //                         <p className="text-gray-400 text-sm">
-    //                             Id: {post.post_id}
-    //                         </p>
-    //                         {/* <div className="mt-4">
-    //                             <pre>{JSON.stringify(post, null, 2)}</pre>
-    //                         </div> */}
-    //                     </div>
-    //                 </div>
-    //             ))}
-    //     </div>
-    // );
-
-    // function formatDate(isoDate: string): string {
-    //     const date = new Date(isoDate);
-    //     const year = date.getFullYear();
-    //     const month = String(date.getMonth() + 1).padStart(2, "0");
-    //     const day = String(date.getDate()).padStart(2, "0");
-    //     return `${year}-${month}-${day}`;
-    // }
-
     function formatElapsedTime(postDate: Date): string {
         const currentDate = new Date();
         const elapsedMilliseconds = currentDate.getTime() - postDate.getTime();
