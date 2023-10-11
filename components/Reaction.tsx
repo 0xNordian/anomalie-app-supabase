@@ -25,13 +25,13 @@ type ReactionProps = {
 export default function Reaction({ reactions, postId, reactionsCount }: ReactionProps) {
     const validReactions: (string | JSX.Element)[] = [
         "👍",
-        <FcLike />,
+        <FcLike key="filledHeart"/>,
         "😂",
         "😲",
         "😢",
         "😡",
         "👎",
-        <AiOutlineHeart />,
+        <AiOutlineHeart key="emptyHeart"/>,
     ];
     const [reaction, setReaction] = useState<ReactNode>(<AiOutlineHeart />);
 
