@@ -1,37 +1,54 @@
 "use client";
 
-import { useState } from "react";
+import { ReactNode, useState } from "react";
 import { FcLike } from "react-icons/fc";
 import { AiOutlineHeart } from "react-icons/ai";
-import Like from '../../components/Like'
 import {
     Popover,
     PopoverTrigger,
     PopoverContent,
     Button,
 } from "@nextui-org/react";
+import ReactionCounter from "./ReactionCounter";
+// import { ReactionsType } from "@/types/reactionsTypes";
+import { type ReactionsType } from "@/types/reactionsTypes"
 
-export default function App() {
-    const validReactions = ["👍", <FcLike />, "😂", "🫂", "😲", "😢", "😡", "👎"];
+// type Reactions = ReactionsType["reactions"]["Row"][];
 
-    const [reaction, setReaction] = useState(<AiOutlineHeart />);
 
-    const handleSetReaction = (emoji: string) => {
+type ReactionProps = {
+    reactions: Array<ReactionsType>;
+    postId: string;
+    reactionsCount: number | undefined,
+};
+
+export default function Reaction({ reactions, postId, reactionsCount }: ReactionProps) {
+    const validReactions: (string | JSX.Element)[] = [
+        "👍",
+        <FcLike />,
+        "😂",
+        "😲",
+        "😢",
+        "😡",
+        "👎",
+        <AiOutlineHeart />,
+    ];
+    const [reaction, setReaction] = useState<ReactNode>(<AiOutlineHeart />);
+
+    const handleSetReaction = (emoji: string | JSX.Element) => {
         setReaction(emoji);
     };
 
     const content = (
         <PopoverContent>
             <div className="px-1 py-2">
-                {/* <div className="text-small font-bold">Select Reaction</div> */}
-                <div className="flex gap-2 text-[1.5rem]">
+                <div className="flex gap-3 text-[1.5rem]">
                     {validReactions.map((emoji) => (
                         <div
-                            key={emoji}
+                            key={emoji.toString()}
                             onClick={() => handleSetReaction(emoji)}
-                            size="small"
+                            // size="small"
                             className="transform scale-100 transition-transform hover:scale-125"
-
                         >
                             {emoji}
                         </div>
@@ -41,26 +58,26 @@ export default function App() {
         </PopoverContent>
     );
 
-    const placements = ["top"];
-
     return (
-        // <div className="flex flex-wrap md:inline-grid md:grid-cols-3 gap-4">
-        <div className="flex">
-            {placements.map((placement) => (
-                <Popover key={placement} placement={placement} color="primary">
+        <div className="flex justify-center items-center gap-1">
+                <Popover
+                    placement={"top"}
+                    className="bg-neutral-900"
+                >
                     <PopoverTrigger>
                         <div
                             color="primary"
-                            variant="flat"
                             className="capitalize"
-                            trigger="hover"
                         >
                             {reaction}
                         </div>
                     </PopoverTrigger>
-                    {content} 
+                    {content}
                 </Popover>
-            ))}
+            <small className="text-xs">
+                {/* <ReactionCounter reactions={reactions} postId={postId} /> */}
+                <small>{reactionsCount}</small>
+            </small>
         </div>
     );
 }

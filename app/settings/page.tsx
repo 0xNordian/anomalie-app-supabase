@@ -1,7 +1,10 @@
 import React from "react";
 import { Button } from "@nextui-org/button";
+import FetchReactions from "@/utils/FetchReactions";
 
-const Settings = () => {
+const Settings = async () => {
+    const reactions = await FetchReactions();
+    console.log("reactions: ", reactions)
     return (
         <>
             <h1>Settings</h1>

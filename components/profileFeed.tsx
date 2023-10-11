@@ -1,17 +1,20 @@
 // src/app/pages/page.tsx
 import FetchPosts from "../utils/FetchPosts";
+import FetchReactions from "../utils/FetchReactions";
 import Avatar from "./Avatar";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 import { PiShareFatLight } from "react-icons/pi";
-import { BiRepost, BiDotsVerticalRounded } from "react-icons/bi";
+import { BiRepost, BiDotsVerticalRounded, BiGridSmall } from "react-icons/bi";
 import { FaRegComment } from "react-icons/fa";
-import {BsThreeDots} from "react-icons/bs";
+import { BsThreeDots } from "react-icons/bs";
 
-import LikeIcon from "./Reaction";
+import Reaction from "./Reaction";
+import ReactionsSummary from "./ReactionsSummary";
 
 const ProfileFeed = async () => {
     const posts = await FetchPosts();
+    const reactions = await FetchReactions();
     const supabase = createServerComponentClient({ cookies });
 
     const {
@@ -20,6 +23,17 @@ const ProfileFeed = async () => {
 
     const filteredPosts =
         posts?.filter((post) => post.users.id === user?.id) || [];
+
+    if (!reactions || !filteredPosts) return null;
+
+    // Calculate reactions count for each post
+    const postsWithReactionsCount = filteredPosts.map((post) => {
+        const postReactions = reactions.filter(
+            (reaction) => reaction.post_id === post.post_id
+        );
+        const reactionsCount = postReactions.length;
+        return { post_id: post.post_id, reactionsCount: reactionsCount };
+    });
 
     function formatElapsedTime(postDate: Date): string {
         const currentDate = new Date();
@@ -72,6 +86,7 @@ const ProfileFeed = async () => {
     return (
         <div className="flex flex-col border-x-[1px] border-gray-400 border-opacity-20">
             {posts &&
+                // filteredPosts.map((post) => (
                 filteredPosts.map((post) => (
                     <div
                         key={post.post_id}
@@ -103,19 +118,25 @@ const ProfileFeed = async () => {
                                     <p className="w-full p-2 break-all">
                                         {post.content}
                                     </p>
+                                    <div className="w-full pl-2">
+                                        <ReactionsSummary />
+                                    </div>
                                     <div
                                         id="reactions"
-                                        className="flex w-full justify-between p-2 text-[1.2rem]"
+                                        className="flex w-full justify-between items-center p-2 text-[1.2rem]"
                                     >
                                         <div className="scale-[1] hover:scale-[1.1]">
                                             <FaRegComment />
                                         </div>
-
                                         <div className="scale-[1.25] hover:scale-[1.35]">
                                             <BiRepost />
                                         </div>
-                                        <div className="scale-[1] hover:scale-[1.1]">
-                                            <LikeIcon />
+                                        <div className="scale-[1] hover:scale-[1.1] flex justify-center items-center gap-1">
+                                            <Reaction
+                                                reactions={reactions}
+                                                postId={post.post_id}
+                                                reactionsCount={postsWithReactionsCount.find(item => item.post_id === post.post_id)?.reactionsCount}
+                                            />
                                         </div>
                                         <div className="scale-[1] hover:scale-[1.1]">
                                             <PiShareFatLight />

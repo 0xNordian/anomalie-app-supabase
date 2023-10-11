@@ -36,7 +36,8 @@ export default async function Index() {
                     <DeployButton />
                     {user ? (
                         <div className="flex items-center gap-4">
-                            Hey, {user.email}!
+                            {/* Hey, {user.email}! */}
+                            Hey, {user.id}!
                             <LogoutButton />
                         </div>
                     ) : (
