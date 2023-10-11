@@ -1,10 +1,10 @@
 'use client'
 import { useState } from 'react'
-import { type ReactionsType } from "@/types/reactionsTypes"
+// import { type ReactionsType } from "@/types/reactionsTypes"
 
-type Reactions = ReactionsType["reactions"]["Row"][]
+// type Reactions = ReactionsType["reactions"]["Row"][]
 
-const ReactionCounter = ({reactions}: { reactions: Reactions}) => {
+const ReactionCounter = () => {
   const [reactionsCount, setReactionsCount] = useState(0);
 
   
