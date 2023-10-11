@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { ReactNode } from "react";
 import { BiHomeCircle, BiUser } from "react-icons/bi";
 import {
     BsBell,
@@ -48,7 +49,7 @@ const NAVIGATION_ITEMS = [
     },
 ];
 
-export default async function AppLayout({ children }) {
+export default async function AppLayout({ children }: {children: ReactNode}) {
     const supabase = createServerComponentClient({ cookies });
     if (!supabase) return null;
     const { data: userData, error: userError } = await supabase.auth.getUser();
@@ -56,6 +57,7 @@ export default async function AppLayout({ children }) {
     const {
         data: { session },
     } = await supabase.auth.getSession();
+    if(session === null) return;
     const matchingUser = users?.find(user => user.id === session.user.id);
     const userProfilePic = matchingUser?.profile_pic ?? null;
     console.log("matchingUser: ", matchingUser);
@@ -71,7 +73,7 @@ export default async function AppLayout({ children }) {
                                     item.title.toLocaleLowerCase() === "home"
                                         ? "/"
                                         : item.title.toLocaleLowerCase() ===
-                                          "profile"
+                                        "profile"
                                         ? userData.user?.email || "#"
                                         : `/${item.title.toLowerCase()}`
                                 }
