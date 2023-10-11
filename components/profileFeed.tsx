@@ -120,9 +120,9 @@ const ProfileFeed = async () => {
                                     <p className="w-full p-2 break-all">
                                         {post.content}
                                     </p>
-                                    <div className="w-full pl-2">
+                                    {/* <div className="w-full pl-2">
                                         <ReactionsSummary />
-                                    </div>
+                                    </div> */}
                                     <div
                                         id="reactions"
                                         className="flex w-full justify-between items-center p-2 text-[1.2rem]"

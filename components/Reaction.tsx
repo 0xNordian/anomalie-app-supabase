@@ -9,12 +9,7 @@ import {
     PopoverContent,
     Button,
 } from "@nextui-org/react";
-import ReactionCounter from "./ReactionCounter";
-// import { ReactionsType } from "@/types/reactionsTypes";
 import { type ReactionsType } from "@/types/reactionsTypes"
-
-// type Reactions = ReactionsType["reactions"]["Row"][];
-
 
 type ReactionProps = {
     reactions: Array<ReactionsType>;
