@@ -8,6 +8,8 @@ type ComposePostType = {
     profile_pic: string | null;
 };
 
+export const dynamic = 'force-dynamic'
+
 const ComposePost = ({ profile_pic }: ComposePostType) => {
     const addPost = async (formData: FormData) => {
         "use server";

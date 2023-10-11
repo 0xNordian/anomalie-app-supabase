@@ -18,6 +18,8 @@ import { cookies, headers } from "next/headers";
 import FetchUsers from "@/utils/FetchUsers";
 import Avatar from "@/components/Avatar";
 
+export const dynamic = 'force-dynamic'
+
 const NAVIGATION_ITEMS = [
     // {
     //     title: "Twitter",

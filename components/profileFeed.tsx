@@ -12,6 +12,8 @@ import { BsThreeDots } from "react-icons/bs";
 import Reaction from "./Reaction";
 import ReactionsSummary from "./ReactionsSummary";
 
+export const dynamic = 'force-dynamic'
+
 const ProfileFeed = async () => {
     const posts = await FetchPosts();
     const reactions = await FetchReactions();
