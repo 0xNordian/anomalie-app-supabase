@@ -1,4 +1,5 @@
 // src/app/pages/page.tsx
+
 import FetchPosts from "../utils/FetchPosts";
 import FetchReactions from "../utils/FetchReactions";
 import Avatar from "./Avatar";
@@ -10,11 +11,15 @@ import { FaRegComment } from "react-icons/fa";
 import { BsThreeDots } from "react-icons/bs";
 
 import Reaction from "./Reaction";
-import ReactionsSummary from "./ReactionsSummary";
+import Link from "next/link";
 
-export const dynamic = 'force-dynamic'
+export const dynamic = "force-dynamic";
 
-const ProfileFeed = async () => {
+type FeedType = {
+    type: "profile" | "all";
+}
+
+const ProfileFeed = async ({type}: FeedType) => {
     const posts = await FetchPosts();
     const reactions = await FetchReactions();
     const supabase = createServerComponentClient({ cookies });
@@ -23,8 +28,13 @@ const ProfileFeed = async () => {
         data: { user },
     } = await supabase.auth.getUser();
 
-    const filteredPosts =
-        posts?.filter((post) => post.users.id === user?.id) || [];
+    // Set the default value of filteredPosts to all posts
+    let filteredPosts = posts;
+
+    if (type === "profile") {
+        // If type is "profile", filter posts by user ID
+        filteredPosts = posts?.filter((post) => post.users.id === user?.id) || [];
+    }
 
     if (!reactions || !filteredPosts) return null;
 
@@ -88,7 +98,6 @@ const ProfileFeed = async () => {
     return (
         <div className="flex flex-col border-x-[1px] border-gray-400 border-opacity-20">
             {posts &&
-                // filteredPosts.map((post) => (
                 filteredPosts.map((post) => (
                     <div
                         key={post.post_id}
@@ -96,13 +105,27 @@ const ProfileFeed = async () => {
                     >
                         <div className="flex flex-col">
                             <div className="flex">
-                                <Avatar profile_pic={post.users.profile_pic} />
+                                <Link
+                                    className="h-fit w-fit rounded-full"
+                                    href="/u/[author_id]"
+                                    as={`/u/${post.author_id}`}
+                                >
+                                    <Avatar
+                                        profile_pic={post.users.profile_pic}
+                                    />
+                                </Link>
                                 <div className="flex flex-col gap-2 justify-center items-center w-full ml-2">
                                     <div className="flex w-full justify-between items-center pl-2">
                                         <div className="flex gap-2 items-center">
-                                            <p>@{post.users.username}</p>
+                                            <Link
+                                                className="hover:underline hover:text-cyan-600"
+                                                href="/u/[author_id]"
+                                                as={`/u/${post.author_id}`}
+                                            >
+                                                <p>@{post.users.username}</p>
+                                            </Link>
                                             <span
-                                                className="text-gray-400 text-sm"
+                                                className="text-gray-400 text-sm hover:text-gray-500 cursor-help"
                                                 title={formatDate(
                                                     new Date(post.created_at)
                                                 )}
@@ -116,10 +139,16 @@ const ProfileFeed = async () => {
                                             <BsThreeDots />
                                         </div>
                                     </div>
+                                    <Link
+                                        className="text-left w-full"
+                                        href="/posts/[post_id]"
+                                        as={`/posts/${post.post_id}`}
+                                    >
+                                        <p className="w-full p-2 break-all">
+                                            {post.content}
+                                        </p>
+                                    </Link>
 
-                                    <p className="w-full p-2 break-all">
-                                        {post.content}
-                                    </p>
                                     {/* <div className="w-full pl-2">
                                         <ReactionsSummary />
                                     </div> */}
@@ -137,7 +166,13 @@ const ProfileFeed = async () => {
                                             <Reaction
                                                 reactions={reactions}
                                                 postId={post.post_id}
-                                                reactionsCount={postsWithReactionsCount.find(item => item.post_id === post.post_id)?.reactionsCount}
+                                                reactionsCount={
+                                                    postsWithReactionsCount.find(
+                                                        (item) =>
+                                                            item.post_id ===
+                                                            post.post_id
+                                                    )?.reactionsCount
+                                                }
                                             />
                                         </div>
                                         <div className="scale-[1] hover:scale-[1.1]">

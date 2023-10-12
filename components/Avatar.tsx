@@ -20,7 +20,7 @@ const Avatar = ({ profile_pic }: ProfilePicType) => {
     // console.log("Avatar profile_pic: ", profile_pic)
     return (
         <Image
-            className="w-10 h-10 rounded-full"
+            className="w-11 h-10 rounded-full"
             src={profile_pic}
             // src={`/icons/user.png`}
             alt="User Avatar"

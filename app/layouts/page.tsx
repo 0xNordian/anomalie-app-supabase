@@ -76,7 +76,7 @@ export default async function AppLayout({ children }: {children: ReactNode}) {
                                         ? "/"
                                         : item.title.toLocaleLowerCase() ===
                                         "profile"
-                                        ? userData.user?.email || "#"
+                                        ? `/u/${session.user.id}`
                                         : `/${item.title.toLowerCase()}`
                                 }
                                 key={item.title}
@@ -84,13 +84,13 @@ export default async function AppLayout({ children }: {children: ReactNode}) {
                                 <div>
                                     <item.icon />
                                 </div>
-                                {item.title !== "Twitter" && (
+                                {item.title !== "Anomalie" && (
                                     <div>{item.title}</div>
                                 )}
                             </Link>
                         ))}
                         <button className="rounded-full m-4 bg-twitterColor p-4 text-2xl text-center hover:bg-opacity-70 transition duration-200 bg-[#4A99E9]">
-                            Tweet
+                            Post
                         </button>
                     </div>
                     <button className="rounded-full flex items-center space-x-2 bg-transparent p-4 text-center hover:bg-white/10 transition duration-200 w-full justify-between">
@@ -117,7 +117,7 @@ export default async function AppLayout({ children }: {children: ReactNode}) {
                             <input
                                 id="searchBox"
                                 type="text"
-                                placeholder="Search Twitter"
+                                placeholder="Search"
                                 className="outline-none peer focus:border-primary focus:border bg-neutral-900/90 w-full h-full rounded-xl py-4 pl-14 pr-4"
                             />
                             <label

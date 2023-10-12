@@ -4,7 +4,7 @@ import Link from "next/link";
 import LogoutButton from "../components/LogoutButton";
 import DeployButton from "../components/DeployButton";
 import ProfileFeed from "../components/profileFeed";
-import { useRouter, redirect } from "next/navigation";
+import { redirect } from "next/navigation";
 import ComposePost from "@/components/compose-post";
 import AppLayout from "./layouts/page";
 import FetchUsers from "@/utils/FetchUsers";
@@ -52,7 +52,7 @@ export default async function Index() {
             </nav>
             <AppLayout>
                 <ComposePost profile_pic={userProfilePic} />
-                <ProfileFeed />
+                <ProfileFeed type={"all"}/>
             </AppLayout>
         </div>
     );
