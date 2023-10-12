@@ -2,7 +2,7 @@ import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 import Link from "next/link";
 import LogoutButton from "../components/LogoutButton";
-import DeployButton from "../components/DeployButton";
+import DeployButton from "../components/AnomalieLogo";
 import ProfileFeed from "../components/profileFeed";
 import { redirect } from "next/navigation";
 import ComposePost from "@/components/compose-post";

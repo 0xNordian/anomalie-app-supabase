@@ -21,7 +21,7 @@ export default async function Posts({
     if (!post) {
         notFound();
     }
-    console.log(post);
+    // console.log(post);
     return (
         <>
             {/* <pre>{JSON.stringify(post, null, 2)}</pre> */}

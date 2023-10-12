@@ -4,7 +4,7 @@ import FetchReactions from "@/utils/FetchReactions";
 
 const Settings = async () => {
     const reactions = await FetchReactions();
-    console.log("reactions: ", reactions)
+    // console.log("reactions: ", reactions)
     return (
         <>
             <h1>Settings</h1>

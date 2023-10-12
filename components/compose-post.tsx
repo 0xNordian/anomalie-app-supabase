@@ -31,7 +31,6 @@ const ComposePost = ({ profile_pic }: ComposePostType) => {
     return (
         <form action={addPost} className="flex flex-1 flex-col gap-y-4 border-x-[1px] border-b-[1px] border-gray-400 border-opacity-20">
             <div className="flex p-4 justify-center">
-
             <Avatar profile_pic={profile_pic} />
             <div className="flex flex-1 flex-col gap-y-4">
                 <ComposePostTextArea />

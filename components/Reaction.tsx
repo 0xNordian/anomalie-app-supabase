@@ -18,7 +18,7 @@ type ReactionProps = {
 };
 
 export default function Reaction({ reactions, postId, reactionsCount }: ReactionProps) {
-    {console.log(reactions, postId, reactionsCount)}
+    // {console.log(reactions, postId, reactionsCount)}
     const validReactions: (string | JSX.Element)[] = [
         "👍",
         <FcLike key="filledHeart"/>,

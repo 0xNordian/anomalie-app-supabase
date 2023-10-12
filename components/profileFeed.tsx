@@ -11,15 +11,15 @@ import { FaRegComment } from "react-icons/fa";
 import { BsThreeDots } from "react-icons/bs";
 
 import Reaction from "./Reaction";
-import Link from "next/link";
+import Link  from "next/link";
 
 export const dynamic = "force-dynamic";
 
 type FeedType = {
     type: "profile" | "all";
-}
+};
 
-const ProfileFeed = async ({type}: FeedType) => {
+const ProfileFeed = async ({ type}: FeedType) => {
     const posts = await FetchPosts();
     const reactions = await FetchReactions();
     const supabase = createServerComponentClient({ cookies });
@@ -33,7 +33,9 @@ const ProfileFeed = async ({type}: FeedType) => {
 
     if (type === "profile") {
         // If type is "profile", filter posts by user ID
-        filteredPosts = posts?.filter((post) => post.users.id === user?.id) || [];
+        filteredPosts =
+            posts?.filter((post) => post.users.id === user?.id) || [];
+            // posts?.filter((post) => post.users.id === "3b644202-a9c2-4d27-ad46-6968f2b8129d") || [];
     }
 
     if (!reactions || !filteredPosts) return null;

@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 
-export default function DeployButton() {
+export default function AnomalieLogo() {
     return (
         <Image
             src={"/anomalie.png"}
