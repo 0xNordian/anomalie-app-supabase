@@ -17,9 +17,10 @@ export const dynamic = "force-dynamic";
 
 type FeedType = {
     type: "profile" | "all";
+    author_id?: string;
 };
 
-const ProfileFeed = async ({ type}: FeedType) => {
+const ProfileFeed = async ({ type, author_id}: FeedType) => {
     const posts = await FetchPosts();
     const reactions = await FetchReactions();
     const supabase = createServerComponentClient({ cookies });
@@ -34,8 +35,8 @@ const ProfileFeed = async ({ type}: FeedType) => {
     if (type === "profile") {
         // If type is "profile", filter posts by user ID
         filteredPosts =
-            posts?.filter((post) => post.users.id === user?.id) || [];
-            // posts?.filter((post) => post.users.id === "3b644202-a9c2-4d27-ad46-6968f2b8129d") || [];
+            // posts?.filter((post) => post.users.id === user?.id) || [];
+            posts?.filter((post) => post.users.id === author_id) || [];
     }
 
     if (!reactions || !filteredPosts) return null;
