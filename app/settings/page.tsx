@@ -4,10 +4,13 @@ import FetchReactions from "@/utils/FetchReactions";
 import AppLayout from "../layouts/page";
 import NavBar from "@/components/NavBar";
 import UpdateUsername from "@/components/UpdateUsername";
+import { supabase } from "@/utils/supabaseClient";
 
 const Settings = async () => {
-    const reactions = await FetchReactions();
-    // console.log("reactions: ", reactions)
+        const {
+            data: { user },
+        } = await supabase.auth.getUser();
+        console.log("user: ", user)
     return (
         <>
         <NavBar />
@@ -17,7 +20,7 @@ const Settings = async () => {
             {/* <div>
                 <Button color="danger">Click me</Button>
             </div> */}
-            <UpdateUsername />
+            <UpdateUsername userSession={user}/>
         </AppLayout>
         </>
     );

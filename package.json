@@ -4,14 +4,16 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "genTypes": "npx supabase gen types typescript --project-id hgwmmnzhhbvdptettpui > ./types/database.ts"
+    "genTypes": "npx supabase gen types typescript --project-id hgwmmnzhhbvdptettpui > ./types/database.ts",
+    "cleanCache": "rm -rf .next/cache",
+    "removeModules": "rm -rf node_modules"
   },
   "dependencies": {
     "@nextui-org/react": "^2.1.13",
     "@supabase/auth-helpers-nextjs": "latest",
     "@supabase/auth-ui-react": "^0.4.5",
     "@supabase/auth-ui-shared": "^0.1.7",
-    "@supabase/supabase-js": "latest",
+    "@supabase/supabase-js": "^2.38.1",
     "framer-motion": "^10.16.4",
     "next": "latest",
     "react": "18.2.0",

@@ -1,3 +1,4 @@
+'use client'
 import supabase from "@/utils/supabase";
 import { notFound } from "next/navigation";
 import { PiShareFatLight } from "react-icons/pi";

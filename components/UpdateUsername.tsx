@@ -1,121 +1,119 @@
-// // import { createServerActionClient } from "@supabase/auth-helpers-nextjs";
-// import { revalidatePath } from "next/cache";
-// // import { supabase } from "@/utils/supabaseClient";
-// import { createServerActionClient } from "@supabase/auth-helpers-nextjs";
-// import { cookies } from "next/headers";
+"use client";
 
-// type UpdateUsernameType = {
-//     currentUsername: string;
-// };
+import supabase from "@/utils/supabase";
+import { useEffect, useState } from "react";
+import { Button } from "@nextui-org/react";
 
-// export const dynamic = "force-dynamic";
+type UpdateUsernameType = {
+    userSession: {
+        id: string;
+        aud: string;
+        role: string;
+        email: string;
+        email_confirmed_at: string;
+        app_metadata: {
+            provider: string;
+            providers: string[];
+        };
+        confirmation_sent_at: string;
+        confirmed_at: string;
+        created_at: string;
+        identities: Array<any>; // You can provide a more specific type if needed
+        last_sign_in_at: string;
+        phone: string;
+        updated_at: string;
+        user_metadata: Record<string, any>;
+    };
+};
 
-// const UpdateUsername = ({ currentUsername }: UpdateUsernameType) => {
-//     const updateUsername = async (formData: FormData) => {
-//         "use server"; // Server-side logic indicator
+const UpdateUsername = ({ userSession }: UpdateUsernameType) => {
+    const [users, setUsers] = useState<any[]>([]);
+    const [userSessionId, setUserSessionId] = useState<string>("");
+    const [currentUsername, setCurrentUsername] = useState("");
 
-//         const supabase = createServerActionClient({ cookies });
+    useEffect(() => {
+        const fetchUsername = async () => {
+            try {
+                const { data: user, error } = await supabase
+                    .from("users")
+                    .select("*");
+                setUsers(user);
+            } catch (error) {
+                console.error("Error fetching username:", error);
+            }
+        };
 
-//         const newUsername = formData.get("newUsername");
-//         if (newUsername === null) return;
-
-//         // Check if user is authenticated
-//         const { data: user } = await supabase.auth.getUser();
-//         if (user === null) return;
-
-//         let { data: updatedUsers } = await supabase
-//         .from("users")
-//         .select("username")
-//         .eq("id", user?.user?.id);
-
-//         console.log("updatedUsers before: ", updatedUsers);
-
-//         // Update username
-//         await supabase
-//             .from("users")
-//             .update({ username: newUsername })
-//             .eq("id", user?.user?.id)
-//             .select();
-
-//             console.log("newUsername: ", newUsername);
-//             console.log("updatedUsers after: ", updatedUsers);
-
-//         revalidatePath("/profile"); // Update the profile page
-//     };
-
-//     return (
-//         <form
-//             action={updateUsername}
-//             className="flex flex-1 flex-col gap-y-4 border-x-[1px] border-b-[1px] border-gray-400 border-opacity-20"
-//         >
-//             <div className="flex p-4 justify-center">
-//                 <div className="flex flex-1 flex-col gap-y-4">
-//                     <input
-//                         type="text"
-//                         name="newUsername"
-//                         placeholder="New Username"
-//                         className="text-black p-2 rounded-md"
-//                     />
-//                     <button className="update-username-button">
-//                         Update Username
-//                     </button>
-//                 </div>
-//             </div>
-//         </form>
-//     );
-// };
-
-// export default UpdateUsername;
-
-import { revalidatePath } from "next/cache";
-import { createServerActionClient } from "@supabase/auth-helpers-nextjs";
-import { cookies } from "next/headers";
-
-export const dynamic = "force-dynamic";
-
-const UpdateUsername = () => {
-    const updateUsername = async (formData: FormData) => {
-        "use server";
-        const supabase = createServerActionClient({ cookies });
-
-        const newUsername = formData.get("newUsername");
-        if (newUsername === null) return;
-
-        const { data: user } = await supabase.auth.getUser();
-        if (user === null) return;
+        fetchUsername();
 
         try {
-            const { data: newUsernameVar, error } = await supabase
-                .from("users")
-                .update({ username: newUsername })
-                .eq("id", "a9de1889-1ee8-4628-9382-f6677ed5abee");
-
-
+            setUserSessionId(userSession.id);
         } catch (error) {
-            console.log("Exception caught: ", error);
+            console.error("Error fetching session:", error);
+            return () => {}; // Return an empty function for cleanup
         }
-        revalidatePath("/settings");
+        return () => {
+            // Cleanup code, if needed
+        };
+    }, []);
+
+    useEffect(() => {
+        // Filter the username when users or userSessionId changes
+        const filteredUsername = users.find(
+            (user) => user.id === userSessionId
+        ) as { username: string } | undefined;
+        console.log("filteredUsername id: ", filteredUsername);
+        // Set the currentUsername state with the filtered username
+        if (filteredUsername) {
+            setCurrentUsername(filteredUsername.username);
+        } else {
+            setCurrentUsername(""); // Set it to an empty string if no matching user
+        }
+        return () => {
+            // Cleanup code, if needed
+        };
+    }, [users, userSessionId]);
+
+    const handleUpdateUsername = async (formData: FormData) => {
+        try {
+            const newUsername = formData.get("newUsername");
+            if (newUsername === null) return;
+            if (users) {
+                const { data, error } = await supabase
+                    .from("users")
+                    .update({ username: newUsername })
+                    .eq("id", userSession.id)
+                    .select()
+                    // .single();
+
+                // if (data) {
+                //     setUsername(newUsername);
+                //     setNewUsername("");
+                // }
+            }
+        } catch (error) {
+            console.error("Error updating username:", error);
+        }
     };
 
     return (
-        <form
-            action={updateUsername}
-            className="flex flex-1 flex-col gap-y-4 border-x-[1px] border-b-[1px] border-gray-400 border-opacity-20"
-        >
-            <div className="flex p-4 justify-center">
-                <div className="flex flex-1 flex-col gap-y-4">
+        <>
+            <h2>Update Username</h2>
+
+            <div className="flex flex-col w-1/4 gap-4">
+                <form action={handleUpdateUsername}>
                     <input
-                        type="text"
+                        value={currentUsername}
+                        onChange={(e) => setCurrentUsername(e.target.value)}
                         name="newUsername"
                         placeholder="New Username"
                         className="text-black p-2 rounded-md"
                     />
-                    <button type="submit" className="update-username-button">
-                        Update Username
-                    </button>
-                </div>
+                    <Button type="submit" color="primary" className="w-1/2">
+                        Save
+                    </Button>
+                </form>
             </div>
-        </form>
+        </>
     );
 };
 
