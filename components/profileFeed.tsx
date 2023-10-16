@@ -167,6 +167,7 @@ const ProfileFeed = async ({ type, author_id}: FeedType) => {
                                         </div>
                                         <div className="scale-[1] hover:scale-[1.1] flex justify-center items-center gap-1">
                                             <Reaction
+                                                authUser={user}
                                                 reactions={reactions}
                                                 postId={post.post_id}
                                                 reactionsCount={
