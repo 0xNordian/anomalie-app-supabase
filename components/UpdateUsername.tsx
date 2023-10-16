@@ -68,6 +68,7 @@ const UpdateUsername = ({ userSession }: UpdateUsernameType) => {
         } else {
             setCurrentUsername(""); // Set it to an empty string if no matching user
         }
+        // console.log("users: ", users);
         return () => {
             // Cleanup code, if needed
         };
@@ -75,25 +76,25 @@ const UpdateUsername = ({ userSession }: UpdateUsernameType) => {
 
     const handleUpdateUsername = async (formData: FormData) => {
         try {
+            console.log("formData: ", formData)
             const newUsername = formData.get("newUsername");
+            console.log("newUsername: ", newUsername)
             if (newUsername === null) return;
+            // console.log("users: ", users)
             if (users) {
                 const { data, error } = await supabase
-                    .from("users")
-                    .update({ username: newUsername })
-                    .eq("id", userSession.id)
-                    .select()
-                    // .single();
-
-                // if (data) {
-                //     setUsername(newUsername);
-                //     setNewUsername("");
-                // }
+                .from("users")
+                .update({ username: newUsername })
+                .eq("id", userSession.id)
+                console.log("Query obj: ", { username: newUsername })
+                console.log("data: ", data);
             }
         } catch (error) {
             console.error("Error updating username:", error);
         }
     };
+
+    //!    (id = auth.uid())
 
     return (
         <>
