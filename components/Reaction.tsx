@@ -59,8 +59,9 @@ export default function Reaction({
     // const handleSetReaction = (emoji: string | JSX.Element) => {
     //     setReaction(emoji);
     // };
-    console.log("reactions authUSer: ", authUser.id);
+    // console.log("reactions authUSer: ", authUser.id);
     const handleAddReaction = async (
+        // authUser: UserSessionType,
         postId: string,
         emoji: string | JSX.Element
     ): Promise<ReactionInsertTypes> => {
@@ -103,7 +104,6 @@ export default function Reaction({
                             onClick={() =>
                                 handleAddReaction(postId, reaction.emoji)
                             }
-                            // size="small"
                             className="transform scale-100 transition-transform hover:scale-125"
                         >
                             {reaction.emoji}

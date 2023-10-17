@@ -47,11 +47,11 @@
     }
 }
 
-img,
+/* img,
 video {
     max-width: 100%;
     height: 100%;
-}
+} */
 
 body {
     background: var(--light-blue);
@@ -79,10 +79,10 @@ h2 {
 /* Heading Level 3 */
 h3 {
     font-size: 1.5em;
-    margin-top: 1em;
-    margin-bottom: 1em;
+    /* margin-top: 1em;
+    margin-bottom: 1em; */
     font-weight: bold;
-    color: #555;
+    /* color: #555; */
 }
 
 /* Heading Level 4 */
