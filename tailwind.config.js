@@ -1,9 +1,9 @@
 /** @type {import('tailwindcss').Config} */
-import {nextui} from "@nextui-org/react";
+import { nextui } from "@nextui-org/react";
 
 module.exports = {
   content: [
-    './app/**/*.{js,ts,jsx,tsx,mdx}', 
+    './app/**/*.{js,ts,jsx,tsx,mdx}',
     './components/**/*.{js,ts,jsx,tsx,mdx}',
     './layouts/**/*.{js,ts,jsx,tsx,mdx}',
     './node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}'
@@ -11,6 +11,11 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        'anomalie-cyan': 'var(--cyan)',
+        'anomalie-light-gray': 'var(--light-gray)',
+        'anomalie-white': 'var(--white)',
+        'anomalie-dark-blue': 'var(--dark-blue)',
+        'anomalie-light-blue': 'var(--light-blue)',
         background: 'hsl(var(--background))',
         foreground: 'hsl(var(--foreground))',
         btn: {

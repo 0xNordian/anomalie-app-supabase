@@ -8,7 +8,7 @@ type ComposePostType = {
     profile_pic: string | null;
 };
 
-export const dynamic = 'force-dynamic'
+export const dynamic = "force-dynamic";
 
 const ComposePost = ({ profile_pic }: ComposePostType) => {
     const addPost = async (formData: FormData) => {
@@ -29,13 +29,20 @@ const ComposePost = ({ profile_pic }: ComposePostType) => {
         revalidatePath("/");
     };
     return (
-        <form action={addPost} className="flex flex-1 flex-col gap-y-4 border-x-[1px] border-b-[1px] border-gray-400 border-opacity-20">
+        <form
+            action={addPost}
+            className="flex flex-1 flex-col gap-y-4 border-x-[1px] border-b-[1px] border-gray-400 border-opacity-20"
+        >
             <div className="flex p-4 justify-center">
-            <Avatar profile_pic={profile_pic} />
-            <div className="flex flex-1 flex-col gap-y-4">
-                <ComposePostTextArea />
-                <button className="post-button">Post</button>
-            </div>
+                <Avatar profile_pic={profile_pic} />
+                <div className="flex flex-1 flex-col gap-y-4">
+                    <ComposePostTextArea />
+                    {/* <button className="post-button">Post</button>
+                     */}
+                    <button className="w-[90px] self-end rounded-2xl m-2 bg-twitterColor p-2 text-lg text-anomalie-dark-blue hover:bg-opacity-70 transition duration-200 bg-anomalie-cyan">
+                        Post
+                    </button>
+                </div>
             </div>
         </form>
     );
