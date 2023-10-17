@@ -99,7 +99,7 @@ const ProfileFeed = async ({ type, author_id}: FeedType) => {
         }
     }
     return (
-        <div className="flex flex-col border-x-[1px] border-gray-400 border-opacity-20">
+        <div className="flex flex-col border-[1px] border-gray-400 border-opacity-20 mb-4">
             {posts &&
                 filteredPosts.map((post) => (
                     <div

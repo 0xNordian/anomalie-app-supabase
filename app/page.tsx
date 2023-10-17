@@ -20,7 +20,6 @@ export default async function Index() {
     // const {
     //     data: { user },
     // } = await supabase.auth.getUser();
-
     // const matchingUser = users?.find((user) => user.id === session.user.id);
     // const userProfilePic = matchingUser?.profile_pic ?? null;
     const sessionData = await getUserSession(); 

@@ -2,8 +2,11 @@ import AnomalieLogo from "./AnomalieLogo";
 import { supabase } from "@/utils/supabaseClient";
 import LogoutButton from "./LogoutButton";
 import Link from "next/link";
+import { FetchUserSession, UserParamData } from "@/utils/FetchUsers";
 
 const NavBar = async () => {
+    const data = await FetchUserSession();
+    console.log("FetchUserSession: ", data)
     const {
         data: { user },
     } = await supabase.auth.getUser();
@@ -15,7 +18,7 @@ const NavBar = async () => {
                 {user ? (
                     <div className="flex items-center gap-4">
                         {/* Hey, {user.email}! */}
-                        Hey, {user.id}!
+                        Hey, {data?.username}!
                         <LogoutButton />
                     </div>
                 ) : (
