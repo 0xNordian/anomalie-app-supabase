@@ -76,17 +76,17 @@ const UpdateUsername = ({ userSession }: UpdateUsernameType) => {
 
     const handleUpdateUsername = async (formData: FormData) => {
         try {
-            console.log("formData: ", formData)
+            console.log("formData: ", formData);
             const newUsername = formData.get("newUsername");
-            console.log("newUsername: ", newUsername)
+            console.log("newUsername: ", newUsername);
             if (newUsername === null) return;
             // console.log("users: ", users)
             if (users) {
                 const { data, error } = await supabase
-                .from("users")
-                .update({ username: newUsername })
-                .eq("id", userSession.id)
-                console.log("Query obj: ", { username: newUsername })
+                    .from("users")
+                    .update({ username: newUsername })
+                    .eq("id", userSession.id);
+                console.log("Query obj: ", { username: newUsername });
                 console.log("data: ", data);
             }
         } catch (error) {
@@ -98,22 +98,25 @@ const UpdateUsername = ({ userSession }: UpdateUsernameType) => {
 
     return (
         <>
-            <h2>Update Username</h2>
+<form action={handleUpdateUsername}>
+    <div className="flex justify-center items-center w-1/2 gap-2">
+        <div className="flex flex-col">
+            <label htmlFor="newUsername">Username</label>
+            <input
+                value={currentUsername}
+                onChange={(e) => setCurrentUsername(e.target.value)}
+                name="newUsername"
+                id="newUsername"
+                placeholder="New Username"
+                className="text-black p-2 rounded-md"
+            />
+        </div>
+        <Button type="submit" color="primary" className="w-1/4 self-end">
+            Save
+        </Button>
+    </div>
+</form>
 
-            <div className="flex flex-col w-1/4 gap-4">
-                <form action={handleUpdateUsername}>
-                    <input
-                        value={currentUsername}
-                        onChange={(e) => setCurrentUsername(e.target.value)}
-                        name="newUsername"
-                        placeholder="New Username"
-                        className="text-black p-2 rounded-md"
-                    />
-                    <Button type="submit" color="primary" className="w-1/2">
-                        Save
-                    </Button>
-                </form>
-            </div>
         </>
     );
 };

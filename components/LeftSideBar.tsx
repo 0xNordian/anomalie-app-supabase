@@ -13,6 +13,7 @@ import { HiEnvelope } from "react-icons/hi2";
 import { BsSearch } from "react-icons/bs";
 import { FiSettings } from "react-icons/fi";
 import { IoCalendarNumberOutline } from "react-icons/io5";
+import PostModal from "@/components/PostModal";
 
 const NAVIGATION_ITEMS = [
     // {
@@ -57,6 +58,7 @@ type LeftSideBarProps = {
 }
 
 const LeftSideBar = ({session, userProfilePic, matchingUser}: LeftSideBarProps) => {
+    
     return (
         <>
         {/* //? LEFT SIDEBAR */}
@@ -99,9 +101,9 @@ const LeftSideBar = ({session, userProfilePic, matchingUser}: LeftSideBarProps) 
                                 )}
                             </Link>
                         ))}
-                        <button className="rounded-2xl m-4 bg-twitterColor p-4 text-xl text-anomalie-dark-blue hover:bg-opacity-70 transition duration-200 bg-anomalie-cyan">
-                            Post
-                        </button>
+                        {/* <button className="rounded-2xl m-4 bg-twitterColor p-4 text-xl text-anomalie-dark-blue hover:bg-opacity-70 transition duration-200 bg-anomalie-cyan"> */}
+                            <PostModal profile_pic={matchingUser.profile_pic}/>
+                        {/* </button> */}
                     </div>
                     <button className="rounded-full flex items-center space-x-2 bg-transparent p-4 text-center hover:bg-white/10 transition duration-200 w-full justify-between">
                         <div className="flex items-center space-x-2">
