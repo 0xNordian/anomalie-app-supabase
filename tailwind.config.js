@@ -26,5 +26,20 @@ module.exports = {
     },
   },
   darkMode: "class",
-  plugins: [nextui()]
+  plugins: [
+    nextui(),
+    function ({ addUtilities }) {
+      const newUtilities = {
+        '.hide-scrollbar': {
+          'scrollbar-width': 'none', /* Firefox */
+          '-ms-overflow-style': 'none', /* Internet Explorer 10+ */
+        },
+        '.hide-scrollbar::-webkit-scrollbar': {
+          width: '0px',
+          background: 'transparent', /* Chrome/Webkit */
+        },
+      };
+      addUtilities(newUtilities, ['responsive', 'hover']);
+    },
+  ]
 }
