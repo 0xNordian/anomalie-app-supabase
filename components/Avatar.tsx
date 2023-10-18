@@ -1,41 +1,3 @@
-// import React from "react";
-// import Image from "next/image";
-
-// type ProfilePicType = {
-//     profile_pic: string | null;
-//     w?: string;
-//     h?: string;
-// };
-
-// const Avatar = ({ profile_pic, w, h }: ProfilePicType) => {
-//     if (profile_pic === null) {
-//         return (
-//             <Image
-//                 // className="w-8 h-8"
-//                 src="/icons/user.png"
-//                 alt="Default Avatar"
-//                 width={48}
-//                 height={48}
-//             />
-//         );
-//     }
-//     // console.log("Avatar profile_pic: ", profile_pic)
-//     const width = w ? `w-${w}` : "w-11";
-//     const height = h ? `h-${h}` : "h-10";
-//     return (
-//         <Image
-//             className={`${width} ${height} rounded-full`}
-//             src={profile_pic}
-//             // src={`/icons/user.png`}
-//             alt="User Avatar"
-//             width={48}
-//             height={48}
-//         />
-//     );
-// };
-
-// export default Avatar;
-
 import React from "react";
 import Image from "next/image";
 
@@ -43,11 +5,27 @@ type ProfilePicType = {
     profile_pic: string | null;
     w?: number;
     h?: number;
+    page?: "profile" | "feed";
 };
 
-const Avatar = ({ profile_pic, w = 48, h = 48 }: ProfilePicType) => {
+const Avatar = ({ profile_pic, w = 48, h = 48, page }: ProfilePicType) => {
     if (profile_pic === null) {
-        return <Image src="/icons/user.png" alt="Default Avatar" width={48} height={48} />;
+        return page === "profile" ? (
+            <Image
+                src="/anomalie-short-transparent.png"
+                alt="Default Avatar"
+                width={120}
+                height={48}
+                className="bg-anomalie-dark-blue rounded-full"
+            />
+        ) : (
+            <Image
+                src="/anomalie-short-transparent.png"
+                alt="Default Avatar"
+                width={48}
+                height={48}
+            />
+        );
     }
 
     return (
@@ -62,3 +40,9 @@ const Avatar = ({ profile_pic, w = 48, h = 48 }: ProfilePicType) => {
 };
 
 export default Avatar;
+
+/*
+    Unhandled Runtime Error
+    TypeError: Cannot read properties of null (reading 'default')
+    */
+// return <Image src="/anomalie-short-transparent.png" alt="Default Avatar" width={48} height={48} />;

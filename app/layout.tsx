@@ -4,6 +4,7 @@ import {Providers} from "./providers";
 export const metadata = {
   title: 'Anomalie App',
   description: 'A social netwrok for the creatives',
+  icon: "@/public/anomalie-short-logo.png",
 }
 
 export default function RootLayout({

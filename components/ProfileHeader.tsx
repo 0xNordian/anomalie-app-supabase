@@ -36,7 +36,7 @@ const ProfileHeader = ({ profile_pic, matchingUser }: ComposePostType) => {
             >
                 <div className="flex gap-4 pl-2 justify-start items-center w-full">
                     <div className="outline rounded-full outline-4">
-                    <Avatar profile_pic={matchingUser.profile_pic} w={120} h={48} />
+                    <Avatar profile_pic={matchingUser.profile_pic} w={120} h={48} page="profile"/>
                     </div>
                     <div className="flex flex-col gap-2">
                         <div className="flex flex-col">
