@@ -26,6 +26,7 @@ type UserParamDataType = {
 export async function UserParamData({ params }: UserParamDataType) {
     const userSessionData = await FetchUserSession();
     const users = await FetchUsers();
+    // console.log("users: ", users)
     const sessionData = await getUserSession();
     if (sessionData === null) return null;
     const matchingUser = users?.find((user) => user.id === params.author_id);

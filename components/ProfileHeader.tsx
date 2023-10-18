@@ -10,6 +10,8 @@ type UserSessionTypes = {
     id: string;
     profile_pic: string | null;
     username: string | null;
+    full_name: string;
+    user_location: string;
 };
 
 type ComposePostType = {
@@ -18,7 +20,8 @@ type ComposePostType = {
 };
 
 const ProfileHeader = ({ profile_pic, matchingUser }: ComposePostType) => {
-    console.log("matchingUser2: ", matchingUser);
+    // console.log("matchingUser2: ", matchingUser);
+    const { full_name, user_location } = matchingUser;
     return (
         <section className="h-[500px] w-full relative border-x-[1px] border-gray-400 border-opacity-20">
             <div id="banner" className="relative h-1/2">
@@ -40,14 +43,14 @@ const ProfileHeader = ({ profile_pic, matchingUser }: ComposePostType) => {
                     </div>
                     <div className="flex flex-col gap-2">
                         <div className="flex flex-col">
-                            <h3>Bekir Simsek</h3>
+                            <h3>{full_name}</h3>
                             <small>
                                 @{matchingUser.username}
                             </small>
                         </div>
                         <div className="flex justify-start items-center w-full">
                             <small className="pr-1">
-                                Lefkosia, <span>Cyprus</span>
+                                {user_location}
                             </small>
                             <CiLocationOn />
                         </div>
