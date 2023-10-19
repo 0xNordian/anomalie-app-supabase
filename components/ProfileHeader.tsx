@@ -4,19 +4,20 @@ import Image from "next/image";
 import { CiLocationOn } from "react-icons/ci";
 import CircleComponent from "./TempCircleComponent";
 import { UserTypes } from "@/types/userTypes";
+import { User } from "deso-protocol/src/lib/user/User";
 
-type UserSessionTypes = {
-    created_at: string;
-    id: string;
-    profile_pic: string | null;
-    username: string | null;
-    full_name: string;
-    user_location: string;
-};
+// type UserSessionTypes = {
+//     created_at: string;
+//     id: string;
+//     profile_pic: string;
+//     username: string;
+//     full_name: string;
+//     user_location: string;
+// };
 
 type ComposePostType = {
     profile_pic: string | null;
-    matchingUser: UserSessionTypes;
+    matchingUser: UserTypes;
 };
 
 const ProfileHeader = ({ profile_pic, matchingUser }: ComposePostType) => {
