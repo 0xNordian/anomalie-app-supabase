@@ -1,7 +1,7 @@
 import React from "react";
 import { Button } from "@nextui-org/button";
 import FetchReactions from "@/utils/FetchReactions";
-import AppLayout from "../layouts/page";
+import AppLayout from "../layouts/AppLayout";
 import NavBar from "@/components/NavBar";
 import UpdateUsername from "@/components/UpdateUsername";
 import { supabase } from "@/utils/supabaseClient";

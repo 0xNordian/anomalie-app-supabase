@@ -1,6 +1,6 @@
 import ProfileFeed from "../components/profileFeed";
 import ComposePost from "@/components/compose-post";
-import AppLayout from "./layouts/page";
+import AppLayout from "./layouts/AppLayout";
 import NavBar from "@/components/NavBar";
 import { getUserSession } from "@/utils/userSessionUtils";
 

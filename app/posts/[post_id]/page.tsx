@@ -6,7 +6,7 @@ import { BiRepost, BiDotsVerticalRounded, BiGridSmall } from "react-icons/bi";
 import { FaRegComment } from "react-icons/fa";
 import { BsThreeDots } from "react-icons/bs";
 import Avatar from "@/components/Avatar";
-import AppLayout from "@/app/layouts/page";
+import AppLayout from "@/app/layouts/AppLayout";
 import { useEffect, useState } from "react";
 
 export const revalidate = 0;

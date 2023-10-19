@@ -1,5 +1,5 @@
 // app/u/[author_id]/page.tsx
-import AppLayout from "@/app/layouts/page";
+import AppLayout from "@/app/layouts/AppLayout";
 import NavBar from "@/components/NavBar";
 import ProfileHeader from "@/components/ProfileHeader";
 import ComposePost from "@/components/compose-post";
