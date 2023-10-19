@@ -31,42 +31,6 @@ const NewsFeed = () => {
     const [isLoaded, setIsLoaded] = useState(false);
     const MAX_ARTICLES = 5;
 
-    useEffect(() => {
-        loadRandomArticles();
-    }, []);
-
-    const loadRandomArticles = async () => {
-        try {
-            const fetchPromises = rssFeeds.map(async (feedUrl) => {
-                const response = await fetch(feedUrl, {
-                    headers: { Accept: "application/json" },
-                });
-                const data = await response.json();
-                data && setIsLoaded(true);
-                return data.items.filter((item) => item.title.length > 0);
-            });
-
-            const articlesArrays = await Promise.all(fetchPromises);
-
-            // Create a mixed array of articles by randomly selecting from each feed
-            const mixedArticles = [];
-            for (let i = 0; i < MAX_ARTICLES; i++) {
-                for (const articlesArray of articlesArrays) {
-                    if (i < articlesArray.length) {
-                        mixedArticles.push(articlesArray[i]);
-                    }
-                }
-            }
-
-            // Shuffle the mixed articles
-            const shuffledArticles = shuffleArray(mixedArticles);
-
-            setArticles(shuffledArticles.slice(0, 5)); // Display two articles at a time
-        } catch (error) {
-            console.error("Error fetching or parsing RSS feed:", error);
-        }
-    };
-
     const shuffleArray = (array: any[]) => {
         // Shuffling algorithm (Fisher-Yates shuffle)
         for (let i = array.length - 1; i > 0; i--) {
@@ -82,6 +46,39 @@ const NewsFeed = () => {
         // }, 60000); // Refresh every minute
 
         // return () => clearInterval(interval);
+
+        const loadRandomArticles = async () => {
+            try {
+                const fetchPromises = rssFeeds.map(async (feedUrl) => {
+                    const response = await fetch(feedUrl, {
+                        headers: { Accept: "application/json" },
+                    });
+                    const data = await response.json();
+                    data && setIsLoaded(true);
+                    return data.items.filter((item) => item.title.length > 0);
+                });
+    
+                const articlesArrays = await Promise.all(fetchPromises);
+    
+                // Create a mixed array of articles by randomly selecting from each feed
+                const mixedArticles = [];
+                for (let i = 0; i < MAX_ARTICLES; i++) {
+                    for (const articlesArray of articlesArrays) {
+                        if (i < articlesArray.length) {
+                            mixedArticles.push(articlesArray[i]);
+                        }
+                    }
+                }
+    
+                // Shuffle the mixed articles
+                const shuffledArticles = shuffleArray(mixedArticles);
+    
+                setArticles(shuffledArticles.slice(0, 5)); // Display two articles at a time
+            } catch (error) {
+                console.error("Error fetching or parsing RSS feed:", error);
+            }
+        };
+        
         loadRandomArticles();
     }, []);
 
