@@ -54,8 +54,9 @@ const NewsFeed = () => {
                         headers: { Accept: "application/json" },
                     });
                     const data = await response.json();
+                    console.log("data: ", data);
                     data && setIsLoaded(true);
-                    return data.items.filter((item) => item.title.length > 0);
+                    return data.items.filter((item: Article) => item.title.length > 0);
                 });
     
                 const articlesArrays = await Promise.all(fetchPromises);
@@ -90,7 +91,7 @@ const NewsFeed = () => {
                         <ArticleSkeleton key={index} />
                     ))
                 ) : articles.length > 0 ? (
-                    articles.map((item, index) => (
+                    articles.map((item: Article, index) => (
                         <li
                             key={index}
                             className="p-4 rounded-md border-[1px] border-gray-400 border-opacity-10"
