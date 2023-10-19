@@ -8,16 +8,25 @@ import { BsThreeDots } from "react-icons/bs";
 import Avatar from "@/components/Avatar";
 import AppLayout from "@/app/layouts/AppLayout";
 import { useEffect, useState } from "react";
+import { PostTypes } from "@/types/storeTypes";
 
 export const revalidate = 0;
 
-const fetchPost = async (postId: string) => {
+const fetchPost = async (postId: string): Promise<PostTypes | null> => {
     const { data: post, error } = await supabase
         .from("posts")
         .select("*, users(*)")
         .match({ post_id: postId })
         .single();
-    return post;
+    // Check for errors or null value
+    if (error || !post) {
+        return null;
+    }
+    
+    // Cast the fetched data to the PostTypes type
+    const typedPost: PostTypes = post as PostTypes;
+    
+    return typedPost;
 }
 
 export default function Posts({
@@ -25,7 +34,7 @@ export default function Posts({
 }: {
     params: { post_id: string };
 }) {
-    const [post, setPost] = useState(null);
+    const [post, setPost] = useState<PostTypes | null>(null);
 
     useEffect(() => {
         (async () => {
@@ -39,7 +48,7 @@ export default function Posts({
     }, [post_id]);
 
     if (!post) {
-        return null; // You can add a loading spinner or any placeholder here
+        return null;
     }
 
     return (
