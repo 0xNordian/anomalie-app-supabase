@@ -1,23 +1,52 @@
 import React from "react";
-import { Button } from "@nextui-org/button";
-import FetchReactions from "@/utils/FetchReactions";
-import AppLayout from "../layouts/AppLayout";
+// import { Button } from "@nextui-org/button";
+// import FetchReactions from "@/utils/FetchReactions";
+import AppLayout from "@/app/layouts/AppLayout";
 import NavBar from "@/components/NavBar";
 import UpdateUsername from "@/components/UpdateUsername";
-import { supabase } from "@/utils/supabaseClient";
+import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
+import { cookies } from "next/headers";
+const supabase = createServerComponentClient({ cookies });
+
+export const dynamic = "force-dynamic";
 
 const Settings = async () => {
     const {
         data: { user },
     } = await supabase.auth.getUser();
-    console.log("user: ", user);
+    // console.log("user: ", user);
+
+    if (user === null) {
+        return <div>Error: Not logged in</div>;
+    }
+
+    const userSession = user as {
+        id: string;
+        aud: string;
+        role: string | undefined;
+        email: string;
+        email_confirmed_at: string;
+        app_metadata: {
+            provider: string;
+            providers: string[];
+        };
+        confirmation_sent_at: string;
+        confirmed_at: string;
+        created_at: string;
+        identities: Array<any>; // You can provide a more specific type if needed
+        last_sign_in_at: string;
+        phone: string;
+        updated_at: string;
+        user_metadata: Record<string, any>;
+    };
+
     return (
         <>
             <NavBar />
             <AppLayout>
                 <div className="p-6">
                     <h1>Settings</h1>
-                    <UpdateUsername userSession={user} />
+                    <UpdateUsername userSession={userSession} />
                 </div>
             </AppLayout>
         </>

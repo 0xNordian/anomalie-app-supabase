@@ -1,4 +1,4 @@
-'use client';
+"use client";
 import React from "react";
 import {
     Modal,
@@ -13,7 +13,7 @@ type PostModalType = {
     profile_pic: string | null;
 };
 
-export default function PostModal({profile_pic}: PostModalType) {
+export default function PostModal({ profile_pic }: PostModalType) {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [backdrop, setBackdrop] = React.useState("opaque");
 
@@ -34,14 +34,14 @@ export default function PostModal({profile_pic}: PostModalType) {
                     <button key={b}>Post</button>
                 ))}
             </div>
-            <Modal 
-                backdrop={"blur"} 
-                isOpen={isOpen} 
+            <Modal
+                backdrop={"blur"}
+                isOpen={isOpen}
                 onClose={onClose}
                 classNames={{
                     body: "bg-anomalie-light-blue backdrop-opacity-20",
                     base: "bg-anomalie-light-blue",
-                  }}
+                }}
             >
                 <ModalContent>
                     {(onClose) => (
@@ -50,7 +50,7 @@ export default function PostModal({profile_pic}: PostModalType) {
                                 Create Post
                             </ModalHeader>
                             <ModalBody>
-                                <ComposePostClient profile_pic={profile_pic}/>
+                                <ComposePostClient profile_pic={profile_pic} />
                             </ModalBody>
                             {/* <ModalFooter>
                                 <Button

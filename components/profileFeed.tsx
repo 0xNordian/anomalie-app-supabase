@@ -1,17 +1,16 @@
-// src/app/pages/page.tsx
-
-import FetchPosts from "../utils/FetchPosts";
-import FetchReactions from "../utils/FetchReactions";
 import Avatar from "./Avatar";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 import { PiShareFatLight } from "react-icons/pi";
-import { BiRepost, BiDotsVerticalRounded, BiGridSmall } from "react-icons/bi";
+import { BiRepost } from "react-icons/bi";
 import { FaRegComment } from "react-icons/fa";
 import { BsThreeDots } from "react-icons/bs";
+import { PostTypes } from "@/types/storeTypes";
+import { ReactionsType } from "@/types/reactionsTypes";
 
 import Reaction from "./Reaction";
-import Link  from "next/link";
+import Link from "next/link";
+import { UserSessionType } from "@/types/UserSession";
 
 export const dynamic = "force-dynamic";
 
@@ -20,10 +19,15 @@ type FeedType = {
     author_id?: string;
 };
 
-const ProfileFeed = async ({ type, author_id}: FeedType) => {
-    const posts = await FetchPosts();
-    const reactions = await FetchReactions();
+const ProfileFeed = async ({ type, author_id }: FeedType) => {
     const supabase = createServerComponentClient({ cookies });
+
+    const { data: posts, error } = await supabase
+        .from("posts")
+        .select("*, users(*)")
+        .order("created_at", { ascending: false });
+
+    const { data: reactions } = await supabase.from("reactions").select("*");
 
     const {
         data: { user },
@@ -36,15 +40,16 @@ const ProfileFeed = async ({ type, author_id}: FeedType) => {
         // If type is "profile", filter posts by user ID
         filteredPosts =
             // posts?.filter((post) => post.users.id === user?.id) || [];
-            posts?.filter((post) => post.users.id === author_id) || [];
+            posts?.filter((post: PostTypes) => post.users.id === author_id) ||
+            [];
     }
 
     if (!reactions || !filteredPosts) return null;
 
     // Calculate reactions count for each post
-    const postsWithReactionsCount = filteredPosts.map((post) => {
+    const postsWithReactionsCount = filteredPosts.map((post: PostTypes) => {
         const postReactions = reactions.filter(
-            (reaction) => reaction.post_id === post.post_id
+            (reaction: ReactionsType) => reaction.post_id === post.post_id
         );
         const reactionsCount = postReactions.length;
         return { post_id: post.post_id, reactionsCount: reactionsCount };
@@ -101,7 +106,7 @@ const ProfileFeed = async ({ type, author_id}: FeedType) => {
     return (
         <div className="flex flex-col border-[1px] border-gray-400 border-opacity-20 mb-4">
             {posts &&
-                filteredPosts.map((post) => (
+                filteredPosts.map((post: PostTypes) => (
                     <div
                         key={post.post_id}
                         className="p-6 w-full h-full border-b-[1px] border-gray-400 border-opacity-20"
@@ -166,18 +171,23 @@ const ProfileFeed = async ({ type, author_id}: FeedType) => {
                                             <BiRepost />
                                         </div>
                                         <div className="scale-[1] hover:scale-[1.1] flex justify-center items-center gap-1">
-                                            <Reaction
-                                                authUser={user}
-                                                reactions={reactions}
-                                                postId={post.post_id}
-                                                reactionsCount={
-                                                    postsWithReactionsCount.find(
-                                                        (item) =>
-                                                            item.post_id ===
-                                                            post.post_id
-                                                    )?.reactionsCount
-                                                }
-                                            />
+                                            {user && (
+                                                <Reaction
+                                                    authUser={user as UserSessionType}
+                                                    reactions={reactions}
+                                                    postId={post.post_id}
+                                                    reactionsCount={
+                                                        postsWithReactionsCount.find(
+                                                            (item: {
+                                                                post_id: string;
+                                                                reactionsCount: number;
+                                                            }) =>
+                                                                item.post_id ===
+                                                                post.post_id
+                                                        )?.reactionsCount
+                                                    }
+                                                />
+                                            )}
                                         </div>
                                         <div className="scale-[1] hover:scale-[1.1]">
                                             <PiShareFatLight />

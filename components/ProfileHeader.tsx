@@ -4,7 +4,6 @@ import Image from "next/image";
 import { CiLocationOn } from "react-icons/ci";
 import CircleComponent from "./TempCircleComponent";
 import { UserTypes } from "@/types/userTypes";
-import { User } from "deso-protocol/src/lib/user/User";
 
 // type UserSessionTypes = {
 //     created_at: string;

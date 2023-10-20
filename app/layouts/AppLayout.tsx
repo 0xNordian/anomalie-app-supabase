@@ -1,9 +1,9 @@
 import { ReactNode } from "react";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
-import FetchUsers from "@/utils/FetchUsers";
 import LeftSideBar from "@/components/LeftSideBar";
 import RightSideBar from "@/components/RightSideBar";
+import { UserTypes } from "@/types/userTypes";
 
 export const dynamic = "force-dynamic";
 
@@ -11,12 +11,12 @@ export default async function AppLayout({ children }: { children: ReactNode }) {
     const supabase = createServerComponentClient({ cookies });
     if (!supabase) return null;
     const { data: userData, error: userError } = await supabase.auth.getUser();
-    const users = await FetchUsers();
+    const { data: users, error } = await supabase.from("users").select("*");
     const {
         data: { session },
     } = await supabase.auth.getSession();
     if (session === null) return;
-    const matchingUser = users?.find((user) => user.id === session.user.id);
+    const matchingUser = users?.find((user: UserTypes) => user.id === session.user.id);
     const userProfilePic = matchingUser?.profile_pic ?? null;
 
     return (

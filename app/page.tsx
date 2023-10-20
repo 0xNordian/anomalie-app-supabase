@@ -1,38 +1,50 @@
-import ProfileFeed from "../components/profileFeed";
-import ComposePost from "@/components/compose-post";
-import AppLayout from "./layouts/AppLayout";
+import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
+import { cookies } from "next/headers";
+import AppLayout from "@/app/layouts/AppLayout";
 import NavBar from "@/components/NavBar";
-import { getUserSession } from "@/utils/userSessionUtils";
+import ComposePost from "@/components/compose-post";
+import { redirect } from "next/navigation";
+import { UserTypes } from "@/types/userTypes";
+import ProfileFeed from "@/components/profileFeed";
 
 export const dynamic = "force-dynamic";
 
+const getUserSession = async () => {
+    const supabase = createServerComponentClient({ cookies });
+    const { data: users, error } = await supabase.from("users").select("*");
+
+    const {
+        data: { session },
+    } = await supabase.auth.getSession();
+
+    if (session === null) {
+        redirect("/login");
+        return null;
+    }
+
+    const matchingUser = users?.find(
+        (user: UserTypes) => user.id === session.user.id
+    );
+    const userProfilePic = matchingUser?.profile_pic ?? null;
+
+    return {
+        session,
+        userProfilePic,
+    };
+};
+
 export default async function Index() {
-    // const supabase = createServerComponentClient({ cookies });
-    // const users = await FetchUsers();
-    // const {
-    //     data: { session },
-    // } = await supabase.auth.getSession();
-
-    // if (session === null) {
-    //     redirect("/login");
-    // }
-
-    // const {
-    //     data: { user },
-    // } = await supabase.auth.getUser();
-    // const matchingUser = users?.find((user) => user.id === session.user.id);
-    // const userProfilePic = matchingUser?.profile_pic ?? null;
-    const sessionData = await getUserSession(); 
+    const sessionData = await getUserSession();
     if (sessionData === null) return null;
 
     const { session, userProfilePic } = sessionData;
     return (
-        <div className="w-full flex flex-col items-center">
-            <NavBar />
+        <>
             <AppLayout>
+                <NavBar />
                 <ComposePost profile_pic={userProfilePic} />
-                <ProfileFeed type={"all"}/>
+                <ProfileFeed type={"all"} />
             </AppLayout>
-        </div>
+        </>
     );
 }

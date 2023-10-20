@@ -3,12 +3,13 @@
 import supabase from "@/utils/supabase";
 import { useEffect, useState } from "react";
 import { Button } from "@nextui-org/react";
+import { UserTypes } from "@/types/userTypes";
 
 type UpdateUsernameType = {
     userSession: {
         id: string;
         aud: string;
-        role: string;
+        role: string | undefined;
         email: string;
         email_confirmed_at: string;
         app_metadata: {
@@ -27,9 +28,19 @@ type UpdateUsernameType = {
 };
 
 const UpdateUsername = ({ userSession }: UpdateUsernameType) => {
-    const [users, setUsers] = useState<any[]>([]);
+    const [users, setUsers] = useState<UserTypes[]>([]);
     const [userSessionId, setUserSessionId] = useState<string>("");
     const [currentUsername, setCurrentUsername] = useState("");
+
+    useEffect(() => {
+        if (!userSession) {
+            // Handle the case where userSession is null
+            console.error('No user session provided');
+            return;
+        }
+
+        // ... rest of your code
+    }, [userSession]);
 
     useEffect(() => {
         const fetchUsername = async () => {
@@ -37,7 +48,11 @@ const UpdateUsername = ({ userSession }: UpdateUsernameType) => {
                 const { data: user, error } = await supabase
                     .from("users")
                     .select("*");
-                setUsers(user);
+                    if (user === null) {
+                        setUsers([]);  // Set to an empty array if user is null
+                    } else {
+                        setUsers(user as UserTypes[]);  // Assume user is an array of UserTypes
+                    }
             } catch (error) {
                 console.error("Error fetching username:", error);
             }

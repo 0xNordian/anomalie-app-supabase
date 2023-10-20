@@ -32,20 +32,9 @@ export default function Reaction({
     postId,
     reactionsCount,
 }: ReactionProps) {
-    // {console.log(reactions, postId, reactionsCount)}
-    // const validReactions: (string | JSX.Element)[] = [
-    //     "👍",
-    //     <FcLike key="filledHeart" />,
-    //     "😂",
-    //     "😲",
-    //     "😢",
-    //     "😡",
-    //     "👎",
-    //     <AiOutlineHeart key="emptyHeart" />,
-    // ];
     const validReactions: { emoji: string | JSX.Element; key: string }[] = [
         { emoji: "👍", key: "thumbsUp" },
-        { emoji: <FcLike key="filledHeart" />, key: "filledHeart" },
+        { emoji: "❤️", key: "filledHeart" },
         { emoji: "😂", key: "laughing" },
         { emoji: "😲", key: "surprised" },
         { emoji: "😢", key: "crying" },
@@ -56,12 +45,7 @@ export default function Reaction({
 
     const [reaction, setReaction] = useState<ReactNode>(<AiOutlineHeart />);
 
-    // const handleSetReaction = (emoji: string | JSX.Element) => {
-    //     setReaction(emoji);
-    // };
-    // console.log("reactions authUSer: ", authUser.id);
     const handleAddReaction = async (
-        // authUser: UserSessionType,
         postId: string,
         emoji: string | JSX.Element
     ): Promise<ReactionInsertTypes> => {
@@ -78,21 +62,22 @@ export default function Reaction({
             ])
             .select();
 
-        console.log("handleAddReaction data/error: ", data, error);
-        return data;
+        if (error) {
+            console.error("Error inserting reaction:", error);
+            throw new Error("Failed to insert reaction");
+        }
+
+        // console.log("handleAddReaction data/error: ", data, error);
+        if (data && data[0]) {
+            return {
+                postId: data[0].post_id,
+                react_giver_user_id: data[0].react_giver_user_id,
+                emoji: data[0].emoji,
+            };
+        } else {
+            throw new Error("Unexpected response format");
+        }
     };
-
-    // const fetchData = async () => {
-    //     const { data, error } = await supabase.from("reactions").select("*");
-    //     if (error) {
-    //         console.error("Error fetching data:", error);
-    //     } else {
-    //         console.log("Fetched data:", data);
-    //     }
-    // };
-
-    // // Call the fetchData function to test the Supabase configuration
-    // fetchData();
 
     const content = (
         <PopoverContent>

@@ -55,15 +55,18 @@ type LeftSideBarProps = {
     session: any;
     userProfilePic: string | null;
     matchingUser: any;
-}
+};
 
-const LeftSideBar = ({session, userProfilePic, matchingUser}: LeftSideBarProps) => {
-    
+const LeftSideBar = ({
+    session,
+    userProfilePic,
+    matchingUser,
+}: LeftSideBarProps) => {
     return (
         <>
-        {/* //? LEFT SIDEBAR */}
-        <section className="w-[25%] sticky top-0 xl:flex flex-col items-stretch h-screen hidden px-6">
-                    <div className="flex flex-col items-stretch h-full space-y-4 mt-4">
+            {/* //? LEFT SIDEBAR */}
+            <section className="w-[25%] sticky top-0 xl:flex flex-col items-stretch h-screen hidden px-6">
+                <div className="flex flex-col items-stretch h-full space-y-4 mt-4">
                     <div>
                         <div className="relative w-full h-full group">
                             <input
@@ -80,50 +83,46 @@ const LeftSideBar = ({session, userProfilePic, matchingUser}: LeftSideBarProps) 
                             </label>
                         </div>
                     </div>
-                        {NAVIGATION_ITEMS.map((item) => (
-                            <Link
-                                className="hover:bg-white/10 text-2xl transition duration-200 flex items-center justify-start w-fit space-x-4 rounded-3xl py-2 px-6"
-                                href={
-                                    item.title.toLocaleLowerCase() === "home"
-                                        ? "/"
-                                        : item.title.toLocaleLowerCase() ===
-                                          "profile"
-                                        ? `/u/${session.user.id}`
-                                        : `/${item.title.toLowerCase()}`
-                                }
-                                key={item.title}
-                            >
-                                <div>
-                                    <item.icon />
-                                </div>
-                                {item.title !== "Anomalie" && (
-                                    <div>{item.title}</div>
-                                )}
-                            </Link>
-                        ))}
-                        {/* <button className="rounded-2xl m-4 bg-twitterColor p-4 text-xl text-anomalie-dark-blue hover:bg-opacity-70 transition duration-200 bg-anomalie-cyan"> */}
-                            <PostModal profile_pic={matchingUser.profile_pic}/>
-                        {/* </button> */}
+                    {NAVIGATION_ITEMS.map((item) => (
+                        <Link
+                            className="hover:bg-white/10 text-2xl transition duration-200 flex items-center justify-start w-fit space-x-4 rounded-3xl py-2 px-6"
+                            href={
+                                item.title.toLocaleLowerCase() === "home"
+                                    ? "/"
+                                    : item.title.toLocaleLowerCase() ===
+                                      "profile"
+                                    ? `/u/${session.user.id}`
+                                    : `/${item.title.toLowerCase()}`
+                            }
+                            key={item.title}
+                        >
+                            <div>
+                                <item.icon />
+                            </div>
+                            {item.title !== "Anomalie" && (
+                                <div>{item.title}</div>
+                            )}
+                        </Link>
+                    ))}
+                        <PostModal profile_pic={matchingUser.profile_pic} />
+                </div>
+                <button className="rounded-full flex items-center space-x-2 bg-transparent p-4 text-center hover:bg-white/10 transition duration-200 w-full justify-between">
+                    <div className="flex items-center space-x-2">
+                        <div className="rounded-full bg-slate-400 w-10 h-10">
+                            <Avatar profile_pic={userProfilePic} />
+                        </div>
+                        <div className="text-left text-sm">
+                            <div className="font-semibold">
+                                Name Placeholder
+                            </div>
+                            <div className="">@{matchingUser?.username}</div>
+                        </div>
                     </div>
-                    <button className="rounded-full flex items-center space-x-2 bg-transparent p-4 text-center hover:bg-white/10 transition duration-200 w-full justify-between">
-                        <div className="flex items-center space-x-2">
-                            <div className="rounded-full bg-slate-400 w-10 h-10">
-                                <Avatar profile_pic={userProfilePic} />
-                            </div>
-                            <div className="text-left text-sm">
-                                <div className="font-semibold">
-                                    Name Placeholder
-                                </div>
-                                <div className="">
-                                    @{matchingUser?.username}
-                                </div>
-                            </div>
-                        </div>
-                        <div>
-                            <BsThreeDots />
-                        </div>
-                    </button>
-                </section>
+                    <div>
+                        <BsThreeDots />
+                    </div>
+                </button>
+            </section>
         </>
     );
 };
