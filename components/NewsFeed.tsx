@@ -54,7 +54,7 @@ const NewsFeed = () => {
                         headers: { Accept: "application/json" },
                     });
                     const data = await response.json();
-                    console.log("data: ", data);
+                    // console.log("data: ", data);
                     data && setIsLoaded(true);
                     return data.items.filter((item: Article) => item.title.length > 0);
                 });

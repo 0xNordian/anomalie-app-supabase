@@ -1,6 +1,4 @@
 import React from "react";
-// import { Button } from "@nextui-org/button";
-// import FetchReactions from "@/utils/FetchReactions";
 import AppLayout from "@/app/layouts/AppLayout";
 import NavBar from "@/components/NavBar";
 import UpdateUsername from "@/components/UpdateUsername";
@@ -14,11 +12,40 @@ const Settings = async () => {
     const {
         data: { user },
     } = await supabase.auth.getUser();
-    // console.log("user: ", user);
-
+    
     if (user === null) {
         return <div>Error: Not logged in</div>;
     }
+
+    const {
+        data: { session },
+    } = await supabase.auth.getSession();
+    // console.log("session: ", session);
+
+    // const { data, error } = await supabase
+    // .from('users')
+    // .update({ username: "diamondHands100" })
+    // .eq("id", session.user.id)
+    // .select();  
+
+    const handleUpdateUsername = async (newUsername: string) => {
+        'use server'
+        try {
+            const { data, error } = await supabase
+                .from('users')
+                .update({ username: newUsername })
+                .eq("id", session.user.id)
+                .select();
+
+            if (error) {
+                console.error("Error updating username:", error);
+            } else {
+                console.log("Updated username:", data);
+            }
+        } catch (error) {
+            console.error("Error updating username:", error);
+        }
+    };
 
     const userSession = user as {
         id: string;
@@ -46,7 +73,7 @@ const Settings = async () => {
             <AppLayout>
                 <div className="p-6">
                     <h1>Settings</h1>
-                    <UpdateUsername userSession={userSession} />
+                    <UpdateUsername userSession={userSession} handleUpdateUsername={handleUpdateUsername}/>
                 </div>
             </AppLayout>
         </>
