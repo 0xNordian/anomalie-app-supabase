@@ -7,13 +7,8 @@ import { UserTypes } from "@/types/userTypes";
 import { FormEvent } from "react";
 import { UserSessionType } from "@/types/UserSession";
 
-// type UpdateFullNameType = {
-//     handleUpdateFullName: (newFullName: string) => void;
-//     userSession: UserSessionType
-// };
-
 type UpdateFullNameType = {
-    handleUpdateProfile: (newUsername: string, newFullName: string) => void;
+    handleUpdateProfile: (newUsername: string, newFullName: string, newLocation: string) => void;
     userSession: {
         id: string;
         aud: string;
@@ -27,7 +22,7 @@ type UpdateFullNameType = {
         confirmation_sent_at: string;
         confirmed_at: string;
         created_at: string;
-        identities: Array<any>; // You can provide a more specific type if needed
+        identities: Array<any>; 
         last_sign_in_at: string;
         phone: string;
         updated_at: string;
@@ -43,15 +38,13 @@ const UpdateUserProfile = ({
     const [userSessionId, setUserSessionId] = useState<string>("");
     const [currentUsername, setCurrentUsername] = useState("");
     const [currentFullName, setCurrentFullName] = useState("");
+    const [currentUserLocation, setCurrentUserLocation] = useState("");
 
     useEffect(() => {
         if (!userSession) {
-            // Handle the case where userSession is null
             console.error("No user session provided");
             return;
         }
-
-        // ... rest of your code
     }, [userSession]);
 
     useEffect(() => {
@@ -61,9 +54,9 @@ const UpdateUserProfile = ({
                     .from("users")
                     .select("*");
                 if (user === null) {
-                    setUsers([]); // Set to an empty array if user is null
+                    setUsers([]); 
                 } else {
-                    setUsers(user as UserTypes[]); // Assume user is an array of UserTypes
+                    setUsers(user as UserTypes[]);
                 }
             } catch (error) {
                 console.error("Error fetching data:", error);
@@ -76,35 +69,16 @@ const UpdateUserProfile = ({
             setUserSessionId(userSession.id);
         } catch (error) {
             console.error("Error fetching session:", error);
-            return () => {}; // Return an empty function for cleanup
+            return () => {};
         }
         return () => {
-            // Cleanup code, if needed
         };
     }, []);
-
-    // useEffect(() => {
-    //     // Filter the username when users or userSessionId changes
-    //     const filteredFullName = users.find(
-    //         (user) => user.id === userSessionId
-    //     ) as { full_name: string } | undefined;
-
-    //     // Set the currentUsername state with the filtered username
-    //     if (filteredFullName) {
-    //         setCurrentFullName(filteredFullName?.full_name);
-    //     } else {
-    //         setCurrentFullName(""); // Set it to an empty string if no matching user
-    //     }
-    //     // console.log("users: ", users);
-    //     return () => {
-    //         // Cleanup code, if needed
-    //     };
-    // }, [users, userSessionId]);
 
     useEffect(() => {
         // Look up the user once when users or userSessionId changes
         const filteredUser = users.find((user) => user.id === userSessionId) as
-            | { username: string; full_name: string }
+            | { username: string; full_name: string; user_location: string }
             | undefined;
 
         console.log("filteredUser id: ", filteredUser);
@@ -113,21 +87,22 @@ const UpdateUserProfile = ({
         if (filteredUser) {
             setCurrentUsername(filteredUser.username);
             setCurrentFullName(filteredUser.full_name);
+            setCurrentUserLocation(filteredUser.user_location);
         } else {
             // Set both to an empty string if no matching user
             setCurrentUsername("");
             setCurrentFullName("");
+            setCurrentUserLocation("");
         }
 
         // console.log("users: ", users);
         return () => {
-            // Cleanup code, if needed
         };
     }, [users, userSessionId]);
 
     const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        handleUpdateProfile(currentUsername, currentFullName);
+        handleUpdateProfile(currentUsername, currentFullName, currentUserLocation);
     };
 
     //!    (id = auth.uid())
@@ -135,34 +110,50 @@ const UpdateUserProfile = ({
     return (
         <>
             <form onSubmit={handleSubmit}>
-                <div className="flex flex-col justify-center items-center w-1/2 gap-2">
-                    <div className="flex flex-col">
-                        <label htmlFor="newUsername">Username</label>
-                        <input
-                            value={currentUsername}
-                            onChange={(e) => setCurrentUsername(e.target.value)}
-                            name="newUsername"
-                            id="newUsername"
-                            placeholder="New Username"
-                            className="text-black p-2 rounded-md"
-                        />
+                <div className="flex flex-col justify-center items-start w-full gap-6 p-6">
+                    <div className="flex flex-col gap-2 w-full">
+                        <div className="flex flex-col gap-1 w-1/3">
+                            <label htmlFor="newUsername">Username</label>
+                            <input
+                                value={currentUsername}
+                                onChange={(e) =>
+                                    setCurrentUsername(e.target.value)
+                                }
+                                name="newUsername"
+                                id="newUsername"
+                                placeholder="New Username"
+                                className="text-black p-2 rounded-md"
+                            />
+                        </div>
+                        <div className="flex flex-col gap-1 w-1/3">
+                            <label htmlFor="newFullName">Full Name</label>
+                            <input
+                                value={currentFullName}
+                                onChange={(e) =>
+                                    setCurrentFullName(e.target.value)
+                                }
+                                name="newFullName"
+                                id="newFullName"
+                                placeholder="New FullName"
+                                className="text-black p-2 rounded-md"
+                            />
+                        </div>
+                        <div className="flex flex-col gap-1 w-1/3">
+                            <label htmlFor="newUserLocation">Location</label>
+                            <input
+                                value={currentUserLocation}
+                                onChange={(e) =>
+                                    setCurrentUserLocation(e.target.value)
+                                }
+                                name="newUserLocation"
+                                id="newUserLocation"
+                                placeholder="New UserLocation"
+                                className="text-black p-2 rounded-md"
+                            />
+                        </div>
                     </div>
-                    <div className="flex flex-col">
-                        <label htmlFor="newUsername">Full Name</label>
-                        <input
-                            value={currentFullName}
-                            onChange={(e) => setCurrentFullName(e.target.value)}
-                            name="newUsername"
-                            id="newUsername"
-                            placeholder="New Username"
-                            className="text-black p-2 rounded-md"
-                        />
-                    </div>
-                    <Button
-                        type="submit"
-                        color="primary"
-                        className="w-1/4"
-                    >
+
+                    <Button type="submit" color="primary" className="w-1/12">
                         Save
                     </Button>
                 </div>
