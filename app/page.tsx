@@ -40,8 +40,8 @@ export default async function Index() {
     const { session, userProfilePic } = sessionData;
     return (
         <>
+            <NavBar />
             <AppLayout>
-                <NavBar />
                 <ComposePost profile_pic={userProfilePic} />
                 <ProfileFeed type={"all"} />
             </AppLayout>
