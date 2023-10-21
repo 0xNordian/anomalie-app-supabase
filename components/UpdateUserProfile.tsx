@@ -5,9 +5,15 @@ import { useEffect, useState } from "react";
 import { Button } from "@nextui-org/react";
 import { UserTypes } from "@/types/userTypes";
 import { FormEvent } from "react";
+import { UserSessionType } from "@/types/UserSession";
 
-type UpdateUsernameType = {
-    handleUpdateUsername: (newUsername: string) => void;
+// type UpdateFullNameType = {
+//     handleUpdateFullName: (newFullName: string) => void;
+//     userSession: UserSessionType
+// };
+
+type UpdateFullNameType = {
+    handleUpdateProfile: (newUsername: string, newFullName: string) => void;
     userSession: {
         id: string;
         aud: string;
@@ -29,10 +35,14 @@ type UpdateUsernameType = {
     };
 };
 
-const UpdateUsername = ({ userSession, handleUpdateUsername }: UpdateUsernameType) => {
+const UpdateUserProfile = ({
+    userSession,
+    handleUpdateProfile,
+}: UpdateFullNameType) => {
     const [users, setUsers] = useState<UserTypes[]>([]);
     const [userSessionId, setUserSessionId] = useState<string>("");
     const [currentUsername, setCurrentUsername] = useState("");
+    const [currentFullName, setCurrentFullName] = useState("");
 
     useEffect(() => {
         if (!userSession) {
@@ -45,7 +55,7 @@ const UpdateUsername = ({ userSession, handleUpdateUsername }: UpdateUsernameTyp
     }, [userSession]);
 
     useEffect(() => {
-        const fetchUsername = async () => {
+        const fetchUserData = async () => {
             try {
                 const { data: user, error } = await supabase
                     .from("users")
@@ -56,11 +66,11 @@ const UpdateUsername = ({ userSession, handleUpdateUsername }: UpdateUsernameTyp
                     setUsers(user as UserTypes[]); // Assume user is an array of UserTypes
                 }
             } catch (error) {
-                console.error("Error fetching username:", error);
+                console.error("Error fetching data:", error);
             }
         };
 
-        fetchUsername();
+        fetchUserData();
 
         try {
             setUserSessionId(userSession.id);
@@ -73,18 +83,42 @@ const UpdateUsername = ({ userSession, handleUpdateUsername }: UpdateUsernameTyp
         };
     }, []);
 
+    // useEffect(() => {
+    //     // Filter the username when users or userSessionId changes
+    //     const filteredFullName = users.find(
+    //         (user) => user.id === userSessionId
+    //     ) as { full_name: string } | undefined;
+
+    //     // Set the currentUsername state with the filtered username
+    //     if (filteredFullName) {
+    //         setCurrentFullName(filteredFullName?.full_name);
+    //     } else {
+    //         setCurrentFullName(""); // Set it to an empty string if no matching user
+    //     }
+    //     // console.log("users: ", users);
+    //     return () => {
+    //         // Cleanup code, if needed
+    //     };
+    // }, [users, userSessionId]);
+
     useEffect(() => {
-        // Filter the username when users or userSessionId changes
-        const filteredUsername = users.find(
-            (user) => user.id === userSessionId
-        ) as { username: string } | undefined;
-        console.log("filteredUsername id: ", filteredUsername);
-        // Set the currentUsername state with the filtered username
-        if (filteredUsername) {
-            setCurrentUsername(filteredUsername.username);
+        // Look up the user once when users or userSessionId changes
+        const filteredUser = users.find((user) => user.id === userSessionId) as
+            | { username: string; full_name: string }
+            | undefined;
+
+        console.log("filteredUser id: ", filteredUser);
+
+        // Set the currentUsername and currentFullName state with the filtered data
+        if (filteredUser) {
+            setCurrentUsername(filteredUser.username);
+            setCurrentFullName(filteredUser.full_name);
         } else {
-            setCurrentUsername(""); // Set it to an empty string if no matching user
+            // Set both to an empty string if no matching user
+            setCurrentUsername("");
+            setCurrentFullName("");
         }
+
         // console.log("users: ", users);
         return () => {
             // Cleanup code, if needed
@@ -93,7 +127,7 @@ const UpdateUsername = ({ userSession, handleUpdateUsername }: UpdateUsernameTyp
 
     const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        handleUpdateUsername(currentUsername);
+        handleUpdateProfile(currentUsername, currentFullName);
     };
 
     //!    (id = auth.uid())
@@ -101,7 +135,7 @@ const UpdateUsername = ({ userSession, handleUpdateUsername }: UpdateUsernameTyp
     return (
         <>
             <form onSubmit={handleSubmit}>
-                <div className="flex justify-center items-center w-1/2 gap-2">
+                <div className="flex flex-col justify-center items-center w-1/2 gap-2">
                     <div className="flex flex-col">
                         <label htmlFor="newUsername">Username</label>
                         <input
@@ -113,10 +147,21 @@ const UpdateUsername = ({ userSession, handleUpdateUsername }: UpdateUsernameTyp
                             className="text-black p-2 rounded-md"
                         />
                     </div>
+                    <div className="flex flex-col">
+                        <label htmlFor="newUsername">Full Name</label>
+                        <input
+                            value={currentFullName}
+                            onChange={(e) => setCurrentFullName(e.target.value)}
+                            name="newUsername"
+                            id="newUsername"
+                            placeholder="New Username"
+                            className="text-black p-2 rounded-md"
+                        />
+                    </div>
                     <Button
                         type="submit"
                         color="primary"
-                        className="w-1/4 self-end"
+                        className="w-1/4"
                     >
                         Save
                     </Button>
@@ -126,4 +171,4 @@ const UpdateUsername = ({ userSession, handleUpdateUsername }: UpdateUsernameTyp
     );
 };
 
-export default UpdateUsername;
+export default UpdateUserProfile;

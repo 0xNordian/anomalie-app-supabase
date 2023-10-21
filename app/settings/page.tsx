@@ -4,6 +4,7 @@ import NavBar from "@/components/NavBar";
 import UpdateUsername from "@/components/UpdateUsername";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
+import UpdateUserProfile from "@/components/UpdateUserProfile";
 const supabase = createServerComponentClient({ cookies });
 
 export const dynamic = "force-dynamic";
@@ -28,22 +29,60 @@ const Settings = async () => {
     // .eq("id", session.user.id)
     // .select();  
 
-    const handleUpdateUsername = async (newUsername: string) => {
+    // const handleUpdateUsername = async (newUsername: string) => {
+    //     'use server'
+    //     try {
+    //         const { data, error } = await supabase
+    //             .from('users')
+    //             .update({ username: newUsername })
+    //             .eq("id", session.user.id)
+    //             .select();
+
+    //         if (error) {
+    //             console.error("Error updating username:", error);
+    //         } else {
+    //             console.log("Updated username:", data);
+    //         }
+    //     } catch (error) {
+    //         console.error("Error updating username:", error);
+    //     }
+    // };
+
+    // const handleUpdateFullName = async (newFullName: string) => {
+    //     'use server'
+    //     try {
+    //         const { data, error } = await supabase
+    //             .from('users')
+    //             .update({ full_name: newFullName })
+    //             .eq("id", session.user.id)
+    //             .select();
+
+    //         if (error) {
+    //             console.error("Error updating username:", error);
+    //         } else {
+    //             console.log("Updated username:", data);
+    //         }
+    //     } catch (error) {
+    //         console.error("Error updating username:", error);
+    //     }
+    // };
+
+    const handleUpdateProfile = async (newUsername: string, newFullName: string) => {
         'use server'
         try {
             const { data, error } = await supabase
                 .from('users')
-                .update({ username: newUsername })
+                .update({ username: newUsername, full_name: newFullName })
                 .eq("id", session.user.id)
                 .select();
 
             if (error) {
-                console.error("Error updating username:", error);
+                console.error("Error updating:", error);
             } else {
-                console.log("Updated username:", data);
+                console.log("Updated data:", data);
             }
         } catch (error) {
-            console.error("Error updating username:", error);
+            console.error("Error updating:", error);
         }
     };
 
@@ -73,7 +112,8 @@ const Settings = async () => {
             <AppLayout>
                 <div className="p-6">
                     <h1>Settings</h1>
-                    <UpdateUsername userSession={userSession} handleUpdateUsername={handleUpdateUsername}/>
+                    {/* <UpdateUsername userSession={userSession} handleUpdateUsername={handleUpdateUsername} /> */}
+                    <UpdateUserProfile userSession={userSession} handleUpdateProfile={handleUpdateProfile}/>
                 </div>
             </AppLayout>
         </>

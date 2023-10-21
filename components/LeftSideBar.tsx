@@ -104,24 +104,28 @@ const LeftSideBar = ({
                             )}
                         </Link>
                     ))}
-                        <PostModal profile_pic={matchingUser.profile_pic} />
+                    <PostModal profile_pic={matchingUser.profile_pic} />
                 </div>
-                <button className="rounded-full flex items-center space-x-2 bg-transparent p-4 text-center hover:bg-white/10 transition duration-200 w-full justify-between">
-                    <div className="flex items-center space-x-2">
-                        <div className="rounded-full bg-slate-400 w-10 h-10">
-                            <Avatar profile_pic={userProfilePic} />
-                        </div>
-                        <div className="text-left text-sm">
-                            <div className="font-semibold">
-                                Name Placeholder
+                <Link href="/settings">
+                    <button className="rounded-full flex items-center space-x-2 bg-transparent p-4 text-center hover:bg-white/10 transition duration-200 w-full justify-between">
+                        <div className="flex items-center space-x-2">
+                            <div className="rounded-full w-10 h-10">
+                                <Avatar profile_pic={userProfilePic} />
                             </div>
-                            <div className="">@{matchingUser?.username}</div>
+                            <div className="text-left text-sm">
+                                <div className="font-semibold">
+                                    {matchingUser.full_name}
+                                </div>
+                                <div className="">
+                                    @{matchingUser?.username}
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div>
-                        <BsThreeDots />
-                    </div>
-                </button>
+                        <div>
+                            <BsThreeDots />
+                        </div>
+                    </button>
+                </Link>
             </section>
         </>
     );
