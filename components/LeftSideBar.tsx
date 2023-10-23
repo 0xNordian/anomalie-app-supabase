@@ -104,7 +104,7 @@ const LeftSideBar = ({
                             )}
                         </Link>
                     ))}
-                    <PostModal profile_pic={matchingUser.profile_pic} />
+                    <PostModal profile_pic={matchingUser.profile_pic} modalTitle={"Create Post"} btnMsg={"Post"} type={"post"}/>
                 </div>
                 <Link href="/settings">
                     <button className="rounded-full flex items-center space-x-2 bg-transparent p-4 text-center hover:bg-white/10 transition duration-200 w-full justify-between">

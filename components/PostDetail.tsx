@@ -12,6 +12,8 @@ import { ReactionsType } from "@/types/reactionsTypes";
 
 import Reaction from "./Reaction";
 import { UserSessionType } from "@/types/UserSession";
+import PostModal from "./PostModal";
+import Giphy from "./Giphy";
 
 /*
 Warning: For production Image Optimization with Next.js, the optional 'sharp' package is strongly recommended. Run 'npm i sharp', and Next.js will use it automatically for Image Optimization.
@@ -113,6 +115,7 @@ export default function PostsDetails({
                                         className="flex w-full justify-between items-center p-2 text-[1.2rem]"
                                     >
                                         <div className="scale-[1] hover:scale-[1.1]">
+                                            {/* <PostModal profile_pic={user.profile_pic} modalTitle={"Comment on post"} btnMsg={""} type={"comment"}/> */}
                                             <FaRegComment />
                                         </div>
                                         <div className="scale-[1.25] hover:scale-[1.35]">
@@ -146,6 +149,7 @@ export default function PostsDetails({
                             </div> */}
                         </div>
                     </div>
+                    {/* <div><Giphy /></div> */}
                 </div>
         </>
     );

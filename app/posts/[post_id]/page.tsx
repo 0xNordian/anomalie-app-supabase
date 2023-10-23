@@ -6,6 +6,34 @@ import { cookies } from "next/headers";
 import { ReactionsType } from "@/types/reactionsTypes";
 import { PostTypes } from "@/types/storeTypes";
 export const dynamic = "force-dynamic";
+import { UserTypes } from "@/types/userTypes";
+import { redirect } from "next/navigation";
+import Comments from "@/components/Comments";
+import ReadComments from "@/components/ReadComments";
+
+const getUserSession = async () => {
+    const supabase = createServerComponentClient({ cookies });
+    const { data: users, error } = await supabase.from("users").select("*");
+
+    const {
+        data: { session },
+    } = await supabase.auth.getSession();
+
+    if (session === null) {
+        redirect("/login");
+        return null;
+    }
+
+    const matchingUser = users?.find(
+        (user: UserTypes) => user.id === session.user.id
+    );
+    const userProfilePic = matchingUser?.profile_pic ?? null;
+
+    return {
+        session,
+        userProfilePic,
+    };
+};
 
 export default async function Posts({
     params: { post_id },
@@ -13,6 +41,9 @@ export default async function Posts({
     params: { post_id: string };
 }) {
     const supabase = createServerComponentClient({ cookies });
+    const sessionData = await getUserSession();
+    if (sessionData === null) return null;
+    const { session, userProfilePic } = sessionData;
     const { data: posts, error } = await supabase
     .from("posts")
     .select("*, users(*)")
@@ -47,7 +78,9 @@ export default async function Posts({
                     user={user} 
                     reactions={reactions} 
                     postsWithReactionsCount={postsWithReactionsCount}
-                />
+                /> 
+                <Comments profile_pic={userProfilePic} post_id={post_id}/>
+                <ReadComments profile_pic={userProfilePic} post_id={post_id}/>
             </AppLayout>
         </>
     );
