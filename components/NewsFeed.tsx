@@ -97,11 +97,11 @@ const NewsFeed = () => {
                             className="p-4 rounded-md border-[1px] border-gray-400 border-opacity-10"
                         >
                             <div className="flex flex-col gap-4">
-                                <img
+                                {/* <img
                                     className="w-full object-cover rounded-md"
                                     src={item.thumbnail}
                                     alt={item.title}
-                                />
+                                /> */}
                                 <div className="flex flex-col gap-1 justify-between">
                                     <a
                                         href={item.link}

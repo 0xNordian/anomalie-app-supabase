@@ -21,7 +21,7 @@ export default async function AppLayout({ children }: { children: ReactNode }) {
 
     return (
         <div className="w-full h-full flex justify-center items-center">
-            <div className="max-w-screen-log w-full h-full flex relative">
+            <div className="max-w-screen w-full h-full flex relative">
                 {/* //? LEFT SIDEBAR */}
                 <LeftSideBar session={session} userProfilePic={userProfilePic} matchingUser={matchingUser}/>
 
@@ -29,7 +29,7 @@ export default async function AppLayout({ children }: { children: ReactNode }) {
                 <div className="min-w-[320px] w-screen md:w-[50%] sm:min-w-[768px] bg-anomalie-dark-blue">{children}</div>
 
                 {/* //? RIGHT SIDEBAR */}
-                {/* <RightSideBar  /> */}
+                <RightSideBar  />
             </div>
         </div>
     );

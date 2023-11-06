@@ -46,7 +46,7 @@ export default function PostModal({
             {modalType === "post" ? (
                 <div
                     onClick={() => handleOpen("blur")}
-                    className="flex flex-wrap gap-3 justify-center rounded-2xl m-4 bg-twitterColor p-4 text-xl text-anomalie-dark-blue hover:bg-opacity-70 transition duration-200 bg-anomalie-cyan cursor-pointer"
+                    className="w-1/2 flex flex-wrap gap-3 justify-center rounded-2xl m-4 bg-twitterColor p-4 text-xl text-anomalie-dark-blue hover:bg-opacity-70 transition duration-200 bg-anomalie-cyan cursor-pointer"
                 >
                     {backdrops.map((b) => (
                         <button key={b}>{btnMsg}</button>

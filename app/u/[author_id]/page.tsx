@@ -94,7 +94,7 @@ const AuthorPage = async ({ params }: AuthorPageType) => {
     }
 
     return (
-        <div className="w-full flex flex-col items-center">
+        <div className="w-full h-full flex flex-col items-center">
             <NavBar />
             <AppLayout>
                 <ProfileHeader
@@ -102,6 +102,7 @@ const AuthorPage = async ({ params }: AuthorPageType) => {
                     matchingUser={matchingUser}
                 />
                 <ProfileFeed type={"profile"} author_id={params.author_id} />
+                <div className="h-screen"></div>
             </AppLayout>
         </div>
     );

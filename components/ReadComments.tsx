@@ -34,7 +34,8 @@ export default async function ReadComments({
 
     let { data: comments, error } = await supabase
         .from("comments")
-        .select("*, users(*)");
+        .select("*, users(*)")
+        .order("created_at", { ascending: false });;
     console.log("comments: ", comments);
     const filteredComments = comments.filter(
         (comment: CommentType) => comment.post_id === post_id

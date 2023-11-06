@@ -112,7 +112,7 @@ const UpdateUserProfile = ({
             <form onSubmit={handleSubmit}>
                 <div className="flex flex-col justify-center items-start w-full gap-6 p-6">
                     <div className="flex flex-col gap-2 w-full">
-                        <div className="flex flex-col gap-1 w-1/3">
+                        <div className="flex flex-col gap-1 w-10/12 sm:w-1/3">
                             <label htmlFor="newUsername">Username</label>
                             <input
                                 value={currentUsername}
@@ -122,10 +122,10 @@ const UpdateUserProfile = ({
                                 name="newUsername"
                                 id="newUsername"
                                 placeholder="New Username"
-                                className="text-black p-2 rounded-md"
+                                className="text-black p-2 rounded-md "
                             />
                         </div>
-                        <div className="flex flex-col gap-1 w-1/3">
+                        <div className="flex flex-col gap-1 w-10/12 sm:w-1/3">
                             <label htmlFor="newFullName">Full Name</label>
                             <input
                                 value={currentFullName}
@@ -138,7 +138,7 @@ const UpdateUserProfile = ({
                                 className="text-black p-2 rounded-md"
                             />
                         </div>
-                        <div className="flex flex-col gap-1 w-1/3">
+                        <div className="flex flex-col gap-1 w-10/12 sm:w-1/3">
                             <label htmlFor="newUserLocation">Location</label>
                             <input
                                 value={currentUserLocation}

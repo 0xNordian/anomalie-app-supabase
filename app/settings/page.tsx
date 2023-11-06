@@ -68,15 +68,16 @@ const Settings = async () => {
     };
 
     return (
-        <>
+        <div className="">
             <NavBar />
             <AppLayout>
-                <div className="p-2">
+                <div className="ml-6 p-2">
                     <h1 className="text-anomalie-white">Settings</h1>
                     <UpdateUserProfile userSession={userSession} handleUpdateProfile={handleUpdateProfile}/>
                 </div>
+                <div className="h-screen"></div>
             </AppLayout>
-        </>
+        </div>
     );
 };
 

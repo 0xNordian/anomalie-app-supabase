@@ -60,7 +60,6 @@ export default async function Posts({
 
     // if (!reactions || !filteredPosts) return null;
 
-    // Calculate reactions count for each post
     const postsWithReactionsCount = filteredPosts.map((post: PostTypes) => {
         const postReactions = reactions.filter(
             (reaction: ReactionsType) => reaction.post_id === post.post_id
@@ -70,7 +69,7 @@ export default async function Posts({
     });
 
     return (
-        <>
+        <div className="h-full">
             <NavBar />
             <AppLayout>
                 <PostsDetails 
@@ -81,7 +80,8 @@ export default async function Posts({
                 /> 
                 <Comments profile_pic={userProfilePic} post_id={post_id}/>
                 <ReadComments profile_pic={userProfilePic} post_id={post_id}/>
+            <div className="h-screen"></div>
             </AppLayout>
-        </>
+        </div>
     );
 }

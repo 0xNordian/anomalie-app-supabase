@@ -44,6 +44,7 @@ export default async function Login() {
                         className="rounded-md px-4 py-2 bg-inherit mb-6 border-[2px] border-gray-400 border-opacity-20"
                         name="email"
                         placeholder="you@example.com"
+                        autoComplete="email"
                         required
                         />
                     <label className="text-md" htmlFor="password">
@@ -54,6 +55,7 @@ export default async function Login() {
                         type="password"
                         name="password"
                         placeholder="••••••••"
+                        autoComplete="password"
                         required
                         />
                     <button className="bg-anomalie-cyan rounded px-4 py-2 mb-2 text-anomalie-light-blue border-[1px] border-gray-400 border-opacity-20">

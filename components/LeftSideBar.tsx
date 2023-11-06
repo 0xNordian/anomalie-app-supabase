@@ -14,42 +14,43 @@ import { BsSearch } from "react-icons/bs";
 import { FiSettings } from "react-icons/fi";
 import { IoCalendarNumberOutline } from "react-icons/io5";
 import PostModal from "@/components/PostModal";
+import { NAVIGATION_ITEMS } from "./NavigationItems";
 
-const NAVIGATION_ITEMS = [
-    // {
-    //     title: "Twitter",
-    //     icon: BsTwitter,
-    // },
+// const NAVIGATION_ITEMS = [
+//     // {
+//     //     title: "Twitter",
+//     //     icon: BsTwitter,
+//     // },
 
-    {
-        title: "Home",
-        icon: BiHomeCircle,
-    },
-    {
-        title: "Explore",
-        icon: HiOutlineHashtag,
-    },
-    {
-        title: "Profile",
-        icon: BiUser,
-    },
-    // {
-    //     title: "Notifications",
-    //     icon: BsBell,
-    // },
-    // {
-    //     title: "Messages",
-    //     icon: BsEnvelope,
-    // },
-    {
-        title: "Calendar",
-        icon: IoCalendarNumberOutline,
-    },
-    {
-        title: "Settings",
-        icon: FiSettings,
-    },
-];
+//     {
+//         title: "Home",
+//         icon: BiHomeCircle,
+//     },
+//     {
+//         title: "Explore",
+//         icon: HiOutlineHashtag,
+//     },
+//     {
+//         title: "Profile",
+//         icon: BiUser,
+//     },
+//     // {
+//     //     title: "Notifications",
+//     //     icon: BsBell,
+//     // },
+//     // {
+//     //     title: "Messages",
+//     //     icon: BsEnvelope,
+//     // },
+//     {
+//         title: "Calendar",
+//         icon: IoCalendarNumberOutline,
+//     },
+//     {
+//         title: "Settings",
+//         icon: FiSettings,
+//     },
+// ];
 
 type LeftSideBarProps = {
     session: any;
@@ -65,7 +66,7 @@ const LeftSideBar = ({
     return (
         <>
             {/* //? LEFT SIDEBAR */}
-            <section className="w-[25%] sticky top-0 xl:flex flex-col items-stretch h-screen hidden px-6">
+            <section className="w-[25%] sticky top-0 lg:flex xl:flex flex-col items-stretch h-screen hidden px-6">
                 <div className="flex flex-col items-stretch h-full space-y-4 mt-4">
                     <div>
                         <div className="relative w-full h-full group">
