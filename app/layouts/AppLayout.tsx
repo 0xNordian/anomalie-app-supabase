@@ -26,10 +26,10 @@ export default async function AppLayout({ children }: { children: ReactNode }) {
                 <LeftSideBar session={session} userProfilePic={userProfilePic} matchingUser={matchingUser}/>
 
                 {/* //? CONTENT */}
-                <div className="min-w-[800px] w-1/2 bg-anomalie-dark-blue">{children}</div>
+                <div className="min-w-[320px] sm:min-w-[768px] w-1/2 bg-anomalie-dark-blue">{children}</div>
 
                 {/* //? RIGHT SIDEBAR */}
-                <RightSideBar  />
+                {/* <RightSideBar  /> */}
             </div>
         </div>
     );

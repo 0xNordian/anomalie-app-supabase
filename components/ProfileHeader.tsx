@@ -35,7 +35,7 @@ const ProfileHeader = ({ profile_pic, matchingUser }: ComposePostType) => {
             </div>
             <div
                 id="profileInfo"
-                className="flex absolute top-[35%] w-full h-1/2 items-center gap-4 px-8"
+                className="flex flex-col md:flex-row absolute top-[50%] md:top-[35%] w-full h-1/2 items-center gap-4 px-8"
             >
                 <div className="flex gap-4 pl-2 justify-start items-center w-full">
                     <div className="outline rounded-full outline-4">
