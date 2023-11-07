@@ -6,6 +6,7 @@ import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers"; 
 import { UserTypes } from "@/types/userTypes";
 import { redirect } from "next/navigation";
+import MobilePostButton from "@/components/MobilePostButton";
 
 type AuthorPageType = {
     params: {
@@ -24,7 +25,6 @@ const supabase = createServerComponentClient({ cookies });
 
     const userSessionData = await FetchUserSession();
     const { data: users, error } = await supabase.from("users").select("*");
-    // console.log("users: ", users)
     const sessionData = await getUserSession();
     if (sessionData === null) return null;
     const matchingUser = users?.find((user: UserTypes) => user.id === params.author_id);
@@ -102,6 +102,7 @@ const AuthorPage = async ({ params }: AuthorPageType) => {
                     matchingUser={matchingUser}
                 />
                 <ProfileFeed type={"profile"} author_id={params.author_id} />
+                <MobilePostButton session={sessionData.session} userProfilePic={userProfilePic} matchingUser={matchingUser}/>
                 <div className="h-screen"></div>
             </AppLayout>
         </div>

@@ -8,13 +8,12 @@
         --btn-background: hsl(200, 10%, 91%);
         --btn-background-hover: hsl(200, 10%, 89%);
         --foreground: hsl(200, 50%, 3%);
-        --light-gray: #4E5764;
-        --white: #E4EDFA;
-        --dark-blue: #19222F;
-        --light-blue: #1E2734;
-        --cyan: #67BCD1;
+        --light-gray: #4e5764;
+        --white: #e4edfa;
+        --dark-blue: #19222f;
+        --light-blue: #1e2734;
+        --cyan: #67bcd1;
     }
-    
 
     @media (prefers-color-scheme: dark) {
         :root {
@@ -137,3 +136,26 @@ h6 {
 #default-icon:hover {
     display: none;
 }
+
+/* Add this CSS to your global styles or a CSS file */
+.mobile-post-button {
+    position: fixed;
+    bottom: 20px; /* Adjust the distance from the bottom as needed */
+    right: 20px; /* Adjust the distance from the right as needed */
+    /* background-color: #007bff; */
+    color: #fff;
+    border: 0;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    cursor: pointer;
+    z-index: 999; /* Ensure it's above other content */
+}
+
+/* .mobile-post-button:hover {
+    background-color: #0056b3;
+} */

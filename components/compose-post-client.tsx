@@ -1,34 +1,21 @@
 'use client'
 import Avatar from "./Avatar";
-import { revalidatePath } from "next/cache";
 import ComposePostTextArea from "./compose-post-textarea";
-import supabase from "@/utils/supabase";
 
 type ComposePostType = {
     profile_pic: string | null;
+    addPost: (formData: FormData) => void;
 };
 
 export const dynamic = "force-dynamic";
 
-const ComposePostClient = ({ profile_pic }: ComposePostType) => {
-    const addPost = async (formData: FormData) => {
-        const content = formData.get("content");
-        if (content === null) return;
-
-        // const supabase = createServerActionClient({ cookies });
-        const supabases = await supabase;
-        // revisar si el usuario esta logeado
-        const { data: user } = await supabases.auth.getUser();
-        // const userId = user?.user?.id;
-        if (user === null) return;
-        await supabase
-            .from("posts")
-            .insert([{ content, author_id: user?.user?.id }]);
-
-    };
+const ComposePostClient = ({ profile_pic, addPost }: ComposePostType) => {
+    const handleSubmit = async (formData: FormData) => {
+        await addPost(formData);
+    }
     return (
         <form
-            action={addPost}
+            action={handleSubmit}
             className="flex flex-1 flex-col gap-y-4 "
         >
             <div className="flex p-4 justify-center">

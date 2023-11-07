@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import {
     Modal,
     ModalContent,
@@ -10,6 +10,7 @@ import {
 import ComposePostClient from "@/components/compose-post-client";
 import Comments from "@/components/Comments";
 import { FaRegComment } from "react-icons/fa";
+import { PiPencilDuotone } from "react-icons/pi";
 
 type PostModalType = {
     profile_pic: string | null;
@@ -17,6 +18,7 @@ type PostModalType = {
     post_id?: string;
     btnMsg?: string;
     modalTitle?: string;
+    addPost: (formData: FormData) => void;
 };
 
 export default function PostModal({
@@ -25,10 +27,12 @@ export default function PostModal({
     post_id,
     btnMsg,
     modalTitle,
+    addPost,
 }: PostModalType) {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [backdrop, setBackdrop] = React.useState("opaque");
     const [modalType, setModalType] = React.useState("");
+    const [windowWidth, setWindowWidth] = React.useState(0);
 
     const backdrops = ["blur"];
 
@@ -37,6 +41,25 @@ export default function PostModal({
         onOpen();
     };
 
+    useEffect(() => {
+        const handleWindowResize = () => {
+            setWindowWidth(window.innerWidth);
+        };
+
+        // Initial window width
+        setWindowWidth(window.innerWidth);
+
+        // Add event listener for window resize
+        window.addEventListener("resize", handleWindowResize);
+
+        // Cleanup the event listener when the component unmounts
+        return () => {
+            window.removeEventListener("resize", handleWindowResize);
+        };
+    }, []); // Provide an empty dependency array
+
+    console.log(windowWidth);
+
     React.useEffect(() => {
         setModalType(type === "comment" ? type : "post");
     }, [type]);
@@ -44,25 +67,38 @@ export default function PostModal({
     return (
         <>
             {modalType === "post" ? (
-                <div
-                    onClick={() => handleOpen("blur")}
-                    className="w-1/2 flex flex-wrap gap-3 justify-center rounded-2xl m-4 bg-twitterColor p-4 text-xl text-anomalie-dark-blue hover:bg-opacity-70 transition duration-200 bg-anomalie-cyan cursor-pointer"
-                >
-                    {backdrops.map((b) => (
-                        <button key={b}>{btnMsg}</button>
-                    ))}
-                </div>
+                windowWidth <= 768 ? (
+                    <div
+                        onClick={() => handleOpen("blur")}
+                        className="w-[80px] h-full flex justify-center rounded-full bg-twitterColor p-4 text-anomalie-dark-blue bg-anomalie-cyan"
+                    >
+                        <PiPencilDuotone />
+                    </div>
+                ) : (
+                    <div
+                        onClick={() => handleOpen("blur")}
+                        className="w-1/2 flex flex-wrap gap-3 justify-center rounded-2xl m-4 bg-twitterColor p-4 text-xl text-anomalie-dark-blue hover:bg-opacity-70 transition duration-200 bg-anomalie-cyan cursor-pointer"
+                    >
+                        {backdrops.map((b) => (
+                            <button key={b}>{btnMsg}</button>
+                        ))}
+                    </div>
+                )
             ) : (
                 <div onClick={() => handleOpen("blur")} className="">
-                    {backdrops.map((b) => (
-                        <button key={b}><FaRegComment /></button>
-                    ))}
+                    {/* {backdrops.map((b) => (
+                        <button key={b}>
+                            <FaRegComment />
+                        </button>
+                    ))} */}
                 </div>
             )}
+
             <Modal
                 backdrop={"blur"}
                 isOpen={isOpen}
                 onClose={onClose}
+                size={"3xl"}
                 classNames={{
                     body: "bg-anomalie-light-blue backdrop-opacity-20",
                     base: "bg-anomalie-light-blue",
@@ -78,6 +114,7 @@ export default function PostModal({
                                 {modalType === "post" ? (
                                     <ComposePostClient
                                         profile_pic={profile_pic}
+                                        addPost={addPost}
                                     />
                                 ) : (
                                     // <Comments profile_pic={profile_pic} post_id={post_id}/>
