@@ -60,7 +60,7 @@ export default function PostModal({
     return (
         <>
             {modalType === "post" ? (
-                windowWidth <= 768 ? (
+                windowWidth < 1024 ? (
                     <div
                         onClick={() => handleOpen("blur")}
                         className="w-[80px] h-full flex justify-center rounded-full bg-twitterColor p-4 text-anomalie-dark-blue bg-anomalie-cyan"
