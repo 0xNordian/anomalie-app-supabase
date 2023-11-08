@@ -9,6 +9,7 @@ import {
 } from "@nextui-org/react";
 import ComposePostClient from "@/components/compose-post-client";
 import { PiPencilDuotone } from "react-icons/pi";
+import { FaRegComment } from "react-icons/fa";
 
 type PostModalType = {
     profile_pic: string | null;
@@ -79,11 +80,12 @@ export default function PostModal({
                 )
             ) : (
                 <div onClick={() => handleOpen("blur")} className="">
-                    {/* {backdrops.map((b) => (
+                    {backdrops.map((b) => (
                         <button key={b}>
-                            <FaRegComment />
+                            {/* <FaRegComment /> */}
+                            
                         </button>
-                    ))} */}
+                    ))}
                 </div>
             )}
 
@@ -112,7 +114,11 @@ export default function PostModal({
                                         onPress={onClose}
                                     />
                                 ) : (
-                                    "Placeholder"
+                                    <ComposePostClient
+                                        profile_pic={profile_pic}
+                                        addPost={addPost}
+                                        onPress={onClose}
+                                    />
                                 )}
                             </ModalBody>
                             {/* <ModalFooter>

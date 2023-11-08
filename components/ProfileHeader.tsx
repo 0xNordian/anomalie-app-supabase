@@ -4,15 +4,34 @@ import Image from "next/image";
 import { CiLocationOn } from "react-icons/ci";
 import CircleComponent from "./TempCircleComponent";
 import { UserTypes } from "@/types/userTypes";
+import Hashtags from "./Hashtags";
 
-// type UserSessionTypes = {
-//     created_at: string;
-//     id: string;
-//     profile_pic: string;
-//     username: string;
-//     full_name: string;
-//     user_location: string;
-// };
+const testHashtags = [
+    {
+        id: 1,
+        category: "dancer",
+    },
+    {
+        id: 2,
+        category: "musician",
+    },
+    {
+        id: 3,
+        category: "artist",
+    },
+    {
+        id: 4,
+        category: "photographer",
+    },
+    {
+        id: 5,
+        category: "videographer",
+    },
+    {
+        id: 6,
+        category: "producer",
+    }
+]
 
 type ComposePostType = {
     profile_pic: string | null;
@@ -65,8 +84,14 @@ const ProfileHeader = ({ profile_pic, matchingUser }: ComposePostType) => {
             </div>
             <div
                 id="profileHashtags"
-                className="absolute top-[75%] w-full h-1/5 bg-pink-500 bg-opacity-0"
-            ></div>
+                className="absolute top-[75%] w-full h-1/5 bg-pink-500 bg-opacity-0 hidden md:flex flex-wrap gap-4 p-10 ml-4"
+            >
+                {testHashtags.map(({id, category}) => (
+                    <div key={id}>
+                        <Hashtags category={category}/>
+                    </div>
+                ))}
+            </div>
         </section>
     );
 };

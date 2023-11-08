@@ -1,5 +1,6 @@
 import React from "react";
 import NewsFeed from "./NewsFeed";
+import Avatar from "./Avatar";
 
 const RightSideBar = () => {
     return (
@@ -24,16 +25,21 @@ const RightSideBar = () => {
                         {Array.from({ length: 3 }).map((_, i) => (
                             <div
                                 key={i}
-                                className="hover:bg-white/10 p-4 flex justify-between items-center last:rounded-b-xl transition duration-200"
+                                className="hover:bg-white/10 p-4 flex justify-start items-center last:rounded-b-xl transition duration-200"
                             >
                                 <div className="flex items-center space-x-2">
-                                    <div className="w-10 h-10 bg-neutral-600 rounded-full flex-none"></div>
+                                    <div className="w-10 h-10 bg-transparent rounded-full flex-none">
+                                        {/* <img src="http://localhost:3000/_next/image?url=%2Fanomalie-short-transparent.png&w=96&q=75" alt="" /> */}
+                                        <Avatar
+                                        profile_pic={"/anomalie-short-transparent.png"}
+                                    />
+                                    </div>
                                     <div className="flex flex-col">
                                         <div className="font-bold text-white">
-                                            Other User
+                                            {`User ${i + 1}`}
                                         </div>
                                         <div className="text-gray-500 text-xs">
-                                            @otheruser1232
+                                        {`@user${i + 1}`}
                                         </div>
                                     </div>
                                 </div>
