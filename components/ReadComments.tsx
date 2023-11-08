@@ -46,7 +46,7 @@ export default async function ReadComments({
                 {filteredComments.map((comment: CommentType) => (
                     <div key={comment.comment_id} className="flex flex-col border-x-[1px] border-gray-400 border-opacity-20">
                         <div
-                            className="p-6 min-w-[700px] w-full h-full border-b-[1px] border-gray-400 border-opacity-20"
+                            className="p-6 w-full h-full border-b-[1px] border-gray-400 border-opacity-20"
                         >
                             <div className="flex flex-col">
                                 {comment.users && (

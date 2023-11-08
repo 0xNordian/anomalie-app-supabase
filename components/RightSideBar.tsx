@@ -25,7 +25,7 @@ const RightSideBar = () => {
                         {Array.from({ length: 3 }).map((_, i) => (
                             <div
                                 key={i}
-                                className="hover:bg-white/10 p-4 flex justify-start items-center last:rounded-b-xl transition duration-200"
+                                className="hover:bg-white/10 p-2 flex justify-start items-center last:rounded-b-xl transition duration-200"
                             >
                                 <div className="flex items-center space-x-2">
                                     <div className="w-10 h-10 bg-transparent rounded-full flex-none">
@@ -44,7 +44,7 @@ const RightSideBar = () => {
                                     </div>
                                 </div>
 
-                                <button className="scale-50 rounded-2xl px-4 py-2 w-[90px] text-lg text-anomalie-dark-blue hover:bg-opacity-70 transition duration-200 bg-anomalie-cyan">
+                                <button className="scale-[50%] rounded-2xl px-4 py-2 w-[90px] text-lg text-anomalie-dark-blue hover:bg-opacity-70 transition duration-200 bg-anomalie-cyan">
                                     Follow
                                 </button>
                             </div>
