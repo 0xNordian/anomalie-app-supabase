@@ -1,24 +1,24 @@
-"use client";
-import React, { useEffect } from "react";
+'use client'
+import React, { useEffect } from 'react'
 import {
     Modal,
     ModalContent,
     ModalHeader,
     ModalBody,
     useDisclosure,
-} from "@nextui-org/react";
-import ComposePostClient from "@/components/compose-post-client";
-import { PiPencilDuotone } from "react-icons/pi";
-import { FaRegComment } from "react-icons/fa";
+} from '@nextui-org/react'
+import ComposePostClient from '@/components/compose-post-client'
+import { PiPencilDuotone } from 'react-icons/pi'
+import { FaRegComment } from 'react-icons/fa'
 
 type PostModalType = {
-    profile_pic: string | null;
-    type?: "post" | "comment";
-    post_id?: string;
-    btnMsg?: string;
-    modalTitle?: string;
-    addPost: (formData: FormData) => void;
-};
+    profile_pic: string | null
+    type?: 'post' | 'comment'
+    post_id?: string
+    btnMsg?: string
+    modalTitle?: string
+    addPost: (formData: FormData) => void
+}
 
 export default function PostModal({
     profile_pic,
@@ -28,50 +28,49 @@ export default function PostModal({
     modalTitle,
     addPost,
 }: PostModalType) {
-    const { isOpen, onOpen, onClose } = useDisclosure();
-    const [backdrop, setBackdrop] = React.useState("opaque");
-    const [modalType, setModalType] = React.useState("");
-    const [windowWidth, setWindowWidth] = React.useState(0);
+    const { isOpen, onOpen, onClose } = useDisclosure()
+    const [backdrop, setBackdrop] = React.useState('opaque')
+    const [modalType, setModalType] = React.useState('')
+    const [windowWidth, setWindowWidth] = React.useState(0)
 
-    const backdrops = ["blur"];
+    const backdrops = ['blur']
 
     const handleOpen = (backdrop: string) => {
-        setBackdrop(backdrop);
-        onOpen();
-    };
+        setBackdrop(backdrop)
+        onOpen()
+    }
 
     useEffect(() => {
         const handleWindowResize = () => {
-            setWindowWidth(window.innerWidth);
-        };
+            setWindowWidth(window.innerWidth)
+        }
 
-        setWindowWidth(window.innerWidth);
-        window.addEventListener("resize", handleWindowResize);
+        setWindowWidth(window.innerWidth)
+        window.addEventListener('resize', handleWindowResize)
 
         return () => {
-            window.removeEventListener("resize", handleWindowResize);
-        };
-    }, []);
-
+            window.removeEventListener('resize', handleWindowResize)
+        }
+    }, [])
 
     React.useEffect(() => {
-        setModalType(type === "comment" ? type : "post");
-    }, [type]);
+        setModalType(type === 'comment' ? type : 'post')
+    }, [type])
 
     return (
         <>
-            {modalType === "post" ? (
+            {modalType === 'post' ? (
                 windowWidth < 1024 ? (
                     <div
-                        onClick={() => handleOpen("blur")}
-                        className="w-[80px] h-full flex justify-center rounded-full bg-twitterColor p-4 text-anomalie-dark-blue bg-anomalie-cyan"
+                        onClick={() => handleOpen('blur')}
+                        className="bg-twitterColor flex h-full w-[80px] justify-center rounded-full bg-anomalie-cyan p-4 text-anomalie-dark-blue"
                     >
                         <PiPencilDuotone />
                     </div>
                 ) : (
                     <div
-                        onClick={() => handleOpen("blur")}
-                        className="w-1/2 flex flex-wrap gap-3 justify-center rounded-2xl m-4 bg-twitterColor p-4 text-xl text-anomalie-dark-blue hover:bg-opacity-70 transition duration-200 bg-anomalie-cyan cursor-pointer"
+                        onClick={() => handleOpen('blur')}
+                        className="m-4 flex w-4/5 cursor-pointer flex-wrap justify-center gap-3 rounded-2xl bg-anomalie-cyan p-2 text-xl text-anomalie-dark-blue transition duration-200 hover:bg-opacity-70 xl:w-1/2"
                     >
                         {backdrops.map((b) => (
                             <button key={b}>{btnMsg}</button>
@@ -79,25 +78,22 @@ export default function PostModal({
                     </div>
                 )
             ) : (
-                <div onClick={() => handleOpen("blur")} className="">
+                <div onClick={() => handleOpen('blur')} className="">
                     {backdrops.map((b) => (
-                        <button key={b}>
-                            {/* <FaRegComment /> */}
-                            
-                        </button>
+                        <button key={b}>{/* <FaRegComment /> */}</button>
                     ))}
                 </div>
             )}
 
             <Modal
-                placement={"center"}
-                backdrop={"blur"}
+                placement={'center'}
+                backdrop={'blur'}
                 isOpen={isOpen}
                 onClose={onClose}
-                size={"3xl"}
+                size={'3xl'}
                 classNames={{
-                    body: "bg-anomalie-light-blue backdrop-opacity-20",
-                    base: "bg-anomalie-light-blue",
+                    body: 'bg-anomalie-light-blue backdrop-opacity-20',
+                    base: 'bg-anomalie-light-blue',
                 }}
             >
                 <ModalContent>
@@ -107,7 +103,7 @@ export default function PostModal({
                                 {modalTitle}
                             </ModalHeader>
                             <ModalBody>
-                                {modalType === "post" ? (
+                                {modalType === 'post' ? (
                                     <ComposePostClient
                                         profile_pic={profile_pic}
                                         addPost={addPost}
@@ -138,5 +134,5 @@ export default function PostModal({
                 </ModalContent>
             </Modal>
         </>
-    );
+    )
 }

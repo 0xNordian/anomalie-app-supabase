@@ -1,53 +1,54 @@
-import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
-import { cookies } from "next/headers";
-import Avatar from "@/components/Avatar";
+import { createServerComponentClient } from '@supabase/auth-helpers-nextjs'
+import { cookies } from 'next/headers'
+import Avatar from '@/components/Avatar'
 
 type ReadCommentsTypes = {
-    post_id: string;
-    profile_pic: string | null;
-};
+    post_id: string
+    profile_pic: string | null
+}
 
 type UserType = {
-    id: string;
-    created_at: string;
-    username: string;
-    profile_pic: string | null;
-    full_name: string;
-    user_location: string;
-};
+    id: string
+    created_at: string
+    username: string
+    profile_pic: string | null
+    full_name: string
+    user_location: string
+}
 
 type CommentType = {
-    comment_id: string;
-    created_at: string;
-    post_id: string;
-    parent_comment_id: string | null;
-    comment_content: string;
-    commenter_id: string;
-    users: UserType;
-};
+    comment_id: string
+    created_at: string
+    post_id: string
+    parent_comment_id: string | null
+    comment_content: string
+    commenter_id: string
+    users: UserType
+}
 
 export default async function ReadComments({
     post_id,
     profile_pic,
 }: ReadCommentsTypes) {
-    const supabase = createServerComponentClient({ cookies });
+    const supabase = createServerComponentClient({ cookies })
 
     let { data: comments, error } = await supabase
-        .from("comments")
-        .select("*, users(*)")
-        .order("created_at", { ascending: false });;
-    console.log("comments: ", comments);
+        .from('comments')
+        .select('*, users(*)')
+        .order('created_at', { ascending: false })
+    console.log('comments: ', comments)
     const filteredComments = comments.filter(
-        (comment: CommentType) => comment.post_id === post_id
-    );
+        (comment: CommentType) => comment.post_id === post_id,
+    )
     return (
         <>
             <>
                 {filteredComments.map((comment: CommentType) => (
-                    <div key={comment.comment_id} className="flex flex-col border-x-[1px] border-gray-400 border-opacity-20">
-                        <div
-                            className="p-6 w-full h-full border-b-[1px] border-gray-400 border-opacity-20"
-                        >
+                    <div
+                        key={comment.comment_id}
+                        className="flex flex-col border-x-[1px] border-gray-400 border-opacity-20"
+                    >
+                        <div className="h-full w-full border-b-[1px] border-gray-400 border-opacity-20 p-6">
                             <div className="flex flex-col">
                                 {comment.users && (
                                     <div className="flex">
@@ -60,9 +61,9 @@ export default async function ReadComments({
                                                 h={48}
                                             />
                                         </div>
-                                        <div className="flex flex-col gap-2 justify-center items-center w-full ml-2">
-                                            <div className="flex w-full justify-between items-center pl-2">
-                                                <div className="flex gap-2 items-center">
+                                        <div className="ml-2 flex w-full flex-col items-center justify-center gap-2">
+                                            <div className="flex w-full items-center justify-between pl-2">
+                                                <div className="flex items-center gap-2">
                                                     <p>
                                                         @
                                                         {comment.users.username}
@@ -83,7 +84,7 @@ export default async function ReadComments({
                                                 </div>
                                             </div>
 
-                                            <p className="w-full p-2 break-all">
+                                            <p className="w-full break-all p-2">
                                                 {comment.comment_content}
                                             </p>
                                         </div>
@@ -95,5 +96,5 @@ export default async function ReadComments({
                 ))}
             </>
         </>
-    );
+    )
 }
