@@ -5,13 +5,18 @@ import ComposePostTextArea from "./compose-post-textarea";
 type ComposePostType = {
     profile_pic: string | null;
     addPost: (formData: FormData) => void;
+    onPress?: () => void;
 };
 
 export const dynamic = "force-dynamic";
 
-const ComposePostClient = ({ profile_pic, addPost }: ComposePostType) => {
+const ComposePostClient = ({ profile_pic, addPost, onPress }: ComposePostType) => {
     const handleSubmit = async (formData: FormData) => {
         await addPost(formData);
+
+        if (onPress) {
+            onPress();
+        }
     }
     return (
         <form

@@ -1,5 +1,4 @@
 import { Button } from "@nextui-org/react";
-
 import PostModal from "@/components/PostModal";
 import { addPost } from "@/utils/addPost";
 
@@ -20,14 +19,6 @@ export default function MobilePostButton({ session, userProfilePic, matchingUser
                 type={"post"}
                 addPost={addPost}
             />
-            {/* <Button
-                isIconOnly
-                color="warning"
-                variant="faded"
-                aria-label="Take a photo"
-            >
-                <CameraIcon />
-            </Button> */}
         </div>
     );
 }

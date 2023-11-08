@@ -8,8 +8,6 @@ import {
     useDisclosure,
 } from "@nextui-org/react";
 import ComposePostClient from "@/components/compose-post-client";
-import Comments from "@/components/Comments";
-import { FaRegComment } from "react-icons/fa";
 import { PiPencilDuotone } from "react-icons/pi";
 
 type PostModalType = {
@@ -46,19 +44,14 @@ export default function PostModal({
             setWindowWidth(window.innerWidth);
         };
 
-        // Initial window width
         setWindowWidth(window.innerWidth);
-
-        // Add event listener for window resize
         window.addEventListener("resize", handleWindowResize);
 
-        // Cleanup the event listener when the component unmounts
         return () => {
             window.removeEventListener("resize", handleWindowResize);
         };
-    }, []); // Provide an empty dependency array
+    }, []);
 
-    console.log(windowWidth);
 
     React.useEffect(() => {
         setModalType(type === "comment" ? type : "post");
@@ -95,6 +88,7 @@ export default function PostModal({
             )}
 
             <Modal
+                placement={"center"}
                 backdrop={"blur"}
                 isOpen={isOpen}
                 onClose={onClose}
@@ -115,9 +109,9 @@ export default function PostModal({
                                     <ComposePostClient
                                         profile_pic={profile_pic}
                                         addPost={addPost}
+                                        onPress={onClose}
                                     />
                                 ) : (
-                                    // <Comments profile_pic={profile_pic} post_id={post_id}/>
                                     "Placeholder"
                                 )}
                             </ModalBody>
