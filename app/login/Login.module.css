@@ -1,0 +1,19 @@
+.bgLogin {
+    font-size: 1rem;
+}
+
+@media (min-width: 1440px) {
+    .bgLogin {
+        background-image: url('/login-bg.png');
+        width: 100vw;
+        height: 100vh;
+        background-size: contain;
+        background-position: center;
+        background-repeat: no-repeat;
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #131313;
+    }
+}

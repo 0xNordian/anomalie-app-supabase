@@ -1,14 +1,14 @@
 import Link from "next/link";
 import Messages from "./messages";
 import AnomalieLogo from "@/components/AnomalieLogo";
+import styles from './Login.module.css'
 // import { getUserSession } from "@/utils/userSessionUtils";
 
 export default async function Login() {
-    // const sessionData = await getUserSession();
-    // console.log("Login: ", sessionData);
     return (
-        <div className="flex-1 flex flex-col w-screen px-8 sm:max-w-md justify-center gap-2">
-            <Link
+        <div className={`${styles.bgLogin} flex-1 flex flex-col w-screen px-8 sm:max-w-md xl:max-w-none justify-center gap-2`}>
+        {/* <div className="flex-1 flex flex-col w-screen px-8 sm:max-w-md justify-center gap-2"> */}
+            {/* <Link
             href="/"
             className="absolute left-8 top-8 py-2 px-4 rounded-md no-underline text-foreground bg-anomalie-dark-blue hover:bg-btn-background-hover flex items-center group text-sm border-[1px] border-gray-400 border-opacity-20"
             >
@@ -27,13 +27,13 @@ export default async function Login() {
                     <polyline points="15 18 9 12 15 6" />
                 </svg>{" "}
                 Back
-            </Link>
+            </Link> */}
             <div className="flex flex-col items-center">
-                <div className="w-[800px] flex justify-center mb-4">
+                <div className="w-1/2 flex justify-center mb-4">
                     <AnomalieLogo />
                 </div>
                 <form
-                    className="flex-1 flex flex-col w-full justify-center gap-2 text-foreground"
+                    className="flex-1 flex flex-col w-full xl:w-[450px] justify-center gap-2 text-foreground"
                     action="/auth/sign-in"
                     method="post"
                     >
