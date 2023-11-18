@@ -6,7 +6,7 @@ import styles from './Login.module.css'
 
 export default async function Login() {
     return (
-        <div className={`${styles.bgLogin} flex-1 flex flex-col w-screen px-8 sm:max-w-md xl:max-w-none justify-center gap-2`}>
+        <div className={`${styles.bgLogin} flex-1 flex flex-col w-screen px-8 sm:max-w-md xl:max-w-none justify-center gap-2`}> 
         {/* <div className="flex-1 flex flex-col w-screen px-8 sm:max-w-md justify-center gap-2"> */}
             {/* <Link
             href="/"
